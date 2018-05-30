@@ -1,0 +1,4 @@
+*~
+_bazelrc_generated
+#*
+/bazel-*

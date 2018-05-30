@@ -1,0 +1,13 @@
+diff -ru gst-libav-1.14.1/ext/libav/gstav.c gst-libav-1.14.1.new/ext/libav/gstav.c
+--- ext/libav/gstav.c	2018-03-23 16:45:20.000000000 -0400
++++ ext/libav/gstav.c	2018-06-26 00:35:37.109166317 -0400
+@@ -30,7 +30,7 @@
+
+ #include <libavcodec/avcodec.h>
+ #include <libavformat/avformat.h>
+-#include <libavfilter/avfiltergraph.h>
++#include <libavfilter/avfilter.h>
+
+ #include "gstav.h"
+ #include "gstavutils.h"
+Only in gst-libav-1.14.1.new/ext/libav: gstav.c~
