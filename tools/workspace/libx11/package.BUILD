@@ -643,6 +643,7 @@ cc_library(
 cc_binary(
     name = "makekeys",
     srcs = ["src/util/makekeys.c"] + glob(["src/*.h"]),
+    deps = ["@xorgproto"],
     copts = COPTS,
 )
 
