@@ -1,9 +1,8 @@
+ * Add bison and flex and use them rather than host
  * Get ORC acceleration working for gst-plugins-base
  * Fix all remaining warnings for x86 and arm
 
  * Rename all config.h's to be private/config.h
- * Add README describing how to use
-
  * Debug fontconfig parsing error in controller app
 
  * Verify that the foo_repository can actually change the names

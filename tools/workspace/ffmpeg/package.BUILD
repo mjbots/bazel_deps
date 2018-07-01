@@ -43,10 +43,16 @@ cc_library(
     ],
 )
 
-CONFIG_HEADERS = [
-    "private/avversion.h",
-    "private/config.h",
-]
+cc_library(
+    name = "internal_headers",
+    hdrs = glob(["**/*.h"]) + [
+        "private/avversion.h",
+        "private/config.h",
+    ],
+    textual_hdrs = glob(["**/*.c", "**/*.S", "**/*.asm", "**/*.inc"]),
+    includes = ["."],
+    visibility = ["//visibility:private"],
+)
 
 COMMON_COPTS = [
     "-I$(GENDIR)/external/ffmpeg/private",
@@ -54,8 +60,13 @@ COMMON_COPTS = [
     "-DHAVE_AV_CONFIG_H",
     "-DPIC",
 
-    "-Wno-deprecated-declarations",
+    "-Wno-deprecated",
     "-Wno-unused-function",
+    "-Wno-pointer-sign",
+    "-Wno-incompatible-pointer-types",
+    "-Wno-parentheses",
+    "-Wno-switch",
+    "-Wno-unused-variable",
 ] + select({
     "@com_github_mjbots_bazel_deps//conditions:gcc" : [
         "-Wno-discarded-qualifiers",
@@ -66,6 +77,8 @@ COMMON_COPTS = [
         "-Wno-constant-conversion",
         "-Wno-unused-const-variable",
         "-Wno-#warnings",
+        "-Wno-sometimes-uninitialized",
+        "-Wno-logical-op-parentheses",
     ],
     "//conditions:default" : [],
 })
@@ -75,16 +88,6 @@ cc_library(
     hdrs = @AVUTIL_HEADERS@,
     srcs = [":libavutil.so"],
     includes = ["."],
-)
-
-cc_library(
-    name = "avutil_textual_headers",
-    textual_hdrs = ["libavutil/" + x for x in [
-        "log2_tab.c",
-        "reverse.c",
-
-        "arm/asm.S",
-    ]],
 )
 
 cc_library(
@@ -105,34 +108,18 @@ cc_binary(
     linkshared = True,
     srcs = ["libavutil/" + x for x in [
         "avconfig.h",
-    ]] + [
-        # Yay, fix up some circular header dependencies.
-        "libavfilter/bufferqueue.h",
-        "libavfilter/avfilter.h",
-        "libavfilter/version.h",
-        "libavfilter/window_func.h",
-        "libavcodec/mathops.h",
-        "libavcodec/x86/mathops.h",
-        "libavcodec/arm/mathops.h",
-    ] + @AVUTIL_SOURCES@ + glob(["libavutil/**/*.h"]) + CONFIG_HEADERS +select({
+    ]] + @AVUTIL_SOURCES@ +select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @AVUTIL_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : (@AVUTIL_X86_SOURCES@ + [":avutil_x86asm"]),
     }),
-    copts = COMMON_COPTS + [
-        "-Wno-pointer-sign",
-        "-Wno-incompatible-pointer-types",
-        "-Wno-parentheses",
-        "-Wno-switch",
-    ],
-    includes = ["."],
+    copts = COMMON_COPTS,
     linkopts = [
         "-Wl,-Bsymbolic",
         "-Wl,--version-script,$(location libavutil/libavutil.lds)",
     ],
     deps = [
-        ":compat",
+        ":internal_headers",
         ":libavutil/libavutil.lds",
-        ":avutil_textual_headers",
     ],
 )
 
@@ -156,35 +143,18 @@ cc_library(
     deps = [":avutil"],
 )
 
-cc_library(
-    name = "swscale_textual_headers",
-    textual_hdrs = ["libswscale/" + x for x in [
-        "rgb2rgb_template.c",
-        "bayer_template.c",
-        "x86/rgb2rgb_template.c",
-        "arm/rgb2yuv_neon_common.S",
-    ]] + [
-        "libavutil/log2_tab.c",
-    ],
-)
-
 cc_binary(
     name = "libswscale.so",
     linkshared = True,
-    srcs = @SWSCALE_SOURCES@ + glob(["libswscale/**/*.h", "libavutil/**/*.h"]) + CONFIG_HEADERS + select({
+    srcs = @SWSCALE_SOURCES@ + select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @SWSCALE_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : (@SWSCALE_X86_SOURCES@ + [":swscale_x86asm"]),
     }),
-    copts = COMMON_COPTS + [
-        "-Wno-switch",
-        "-Wno-unused-function",
-        "-Wno-incompatible-pointer-types",
-        "-Wno-parentheses",
-    ],
+    copts = COMMON_COPTS,
     deps = [
+        ":internal_headers",
         ":avutil",
         ":libswscale/libswscale.lds",
-        ":swscale_textual_headers",
     ],
     linkopts = [
         "-Wl,-Bsymbolic",
@@ -200,34 +170,18 @@ cc_library(
     deps = [":avutil"],
 )
 
-cc_library(
-    name = "swresample_textual_headers",
-    textual_hdrs = ["libswresample/" + x for x in [
-        "noise_shaping_data.c",
-        "resample_template.c",
-        "dither_template.c",
-        "rematrix_template.c",
-        "log2_tab.c",
-    ]] + [
-        "libavutil/log2_tab.c",
-    ],
-)
-
 cc_binary(
     name = "libswresample.so",
     linkshared = True,
-    srcs = @SWRESAMPLE_SOURCES@ + glob(["libswresample/**/*.h"]) + CONFIG_HEADERS + select({
+    srcs = @SWRESAMPLE_SOURCES@ + select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @SWRESAMPLE_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : (@SWRESAMPLE_X86_SOURCES@ + [":swresample_x86asm"]),
-    }) + glob(["libavutil/**/*.h"]),
-    copts = COMMON_COPTS + [
-        "-Wno-pointer-sign",
-        "-Wno-switch",
-    ],
+    }),
+    copts = COMMON_COPTS,
     deps = [
+        ":internal_headers",
         ":avutil",
         ":libswresample/libswresample.lds",
-        ":swresample_textual_headers",
     ],
     linkopts = [
         "-Wl,-Bsymbolic",
@@ -243,54 +197,26 @@ cc_library(
     deps = [":avutil", ":swresample"],
 )
 
-cc_library(
-    name = "avcodec_textual_headers",
-    textual_hdrs = ["libavcodec/" + x for x in [
-        "aacps.c",
-        "ac3dec.c",
-        "aacpsdata.c",
-        "eac3dec.c",
-        "codec_list.c",
-        "parser_list.c",
-        "x86/h264_cabac.c",
-        "x86/rnd_template.c",
-        "x86/vp9dsp_init_16bpp_template.c",
-        "x86/hpeldsp_rnd_template.c",
-        "x86/mpegvideoenc_qns_template.c",
-        "arm/vp9dsp_init_16bpp_arm_template.c",
-        "arm/neon.S",
-    ]] + [
-        ":libavcodec/bsf_list.c",
-        "libavutil/log2_tab.c",
-        "libavutil/reverse.c",
-    ] + glob(["libavcodec/*_template.c"]),
-)
-
 cc_binary(
     name = "libavcodec.so",
     linkshared = True,
-    srcs = @AVCODEC_SOURCES@ + CONFIG_HEADERS + ["libavcodec/" + x for x in [
+    srcs = @AVCODEC_SOURCES@ + ["libavcodec/" + x for x in [
         # HAVE_THREADS
         "pthread.c",
         "pthread_slice.c",
         "pthread_frame.c",
-    ]] + glob(["libavcodec/**/*.h", "libavformat/**/*.h", "libavfilter/**/*.h", "libavutil/**/*.h"]) + select({
+    ]] + select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @AVCODEC_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : (@AVCODEC_X86_SOURCES@ + [":avcodec_x86asm"]),
     }),
     copts = COMMON_COPTS + [
-        "-Wno-pointer-sign",
-        "-Wno-parentheses",
-        "-Wno-switch",
-        "-Wno-incompatible-pointer-types",
         "-Iexternal/ffmpeg/libavcodec/",
     ],
     deps = [
+        ":internal_headers",
         ":avutil",
-        ":compat",
         ":swresample",
         ":libavcodec/libavcodec.lds",
-        ":avcodec_textual_headers",
     ],
     linkopts = [
         "-Wl,-Bsymbolic",
@@ -306,37 +232,22 @@ cc_library(
     deps = [":avutil", ":avcodec"],
 )
 
-cc_library(
-    name = "avformat_textual_headers",
-    textual_hdrs = [
-        "libavformat/protocol_list.c",
-        "libavformat/muxer_list.c",
-        "libavformat/demuxer_list.c",
-        "libavformat/log2_tab.c",
-        "libavcodec/golomb.c",
-        "libavutil/log2_tab.c",
-    ],
-)
-
 cc_binary(
     name = "libavformat.so",
     linkshared = True,
-    srcs = @AVFORMAT_SOURCES@ + CONFIG_HEADERS + glob(["libavformat/**/*.h", "libavutil/**/*.h", "libavcodec/**/*.h"]) + select({
+    srcs = @AVFORMAT_SOURCES@ + select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @AVFORMAT_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : @AVFORMAT_X86_SOURCES@,
     }),
     copts = COMMON_COPTS + [
-        "-Wno-parentheses",
-        "-Wno-pointer-sign",
-        "-Wno-switch",
         "-Iexternal/ffmpeg/libavcodec",
     ],
     deps = [
-        "@bzip2",
+        ":internal_headers",
         ":avutil",
         ":avcodec",
         ":libavformat/libavformat.lds",
-        ":avformat_textual_headers",
+        "@bzip2",
     ],
     linkopts = [
         "-Wl,-Bsymbolic",
@@ -352,42 +263,25 @@ cc_library(
     deps = [":avutil", ":avcodec", ":avformat", ":swscale"],
 )
 
-cc_library(
-    name = "avfilter_textual_headers",
-    textual_hdrs = ["libavfilter/" + x for x in [
-        "colorspacedsp_template.c",
-        "colorspacedsp_yuv2yuv_template.c",
-        "filter_list.c",
-        "all_channel_layouts.inc",
-    ]] + [
-        "libavutil/log2_tab.c",
-    ],
-)
-
 cc_binary(
     name = "libavfilter.so",
     linkshared = True,
-    srcs = @AVFILTER_SOURCES@ + CONFIG_HEADERS + ["libavfilter/" + x for x in [
+    srcs = @AVFILTER_SOURCES@ + ["libavfilter/" + x for x in [
         "pthread.c",
-    ]] + glob(["libavfilter/**/*.h", "libavcodec/**/*.h", "libavutil/**/*.h"]) + select({
+    ]] + select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @AVFILTER_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : (@AVFILTER_X86_SOURCES@ + [":avfilter_x86asm"]),
     }),
     copts = COMMON_COPTS + [
-        "-Wno-switch",
-        "-Wno-deprecated-declarations",
-        "-Wno-incompatible-pointer-types",
-        "-Wno-parentheses",
-        "-Wno-pointer-sign",
         "-Iexternal/ffmpeg/libavfilter",
     ],
     deps = [
+        ":internal_headers",
         ":avutil",
         ":avcodec",
         ":avformat",
         ":swscale",
         ":libavfilter/libavfilter.lds",
-        ":avfilter_textual_headers",
     ],
     linkopts = [
         "-Wl,-Bsymbolic",
@@ -403,30 +297,18 @@ cc_library(
     deps = [":avutil", ":avcodec", ":avformat", ":avfilter"],
 )
 
-cc_library(
-    name = "avdevice_textual_headers",
-    textual_hdrs = ["libavdevice/" + x for x in [
-        "outdev_list.c",
-        "indev_list.c",
-    ]] + [
-        "libavutil/reverse.c",
-    ],
-)
-
 cc_binary(
     name = "libavdevice.so",
     linkshared = True,
-    srcs = @AVDEVICE_SOURCES@ + CONFIG_HEADERS + glob(["libavdevice/**/*.h", "libavutil/**/*.h", "libavformat/**/*.h"]),
-    copts = COMMON_COPTS + [
-        "-Wno-pointer-sign",
-    ],
+    srcs = @AVDEVICE_SOURCES@,
+    copts = COMMON_COPTS,
     deps = [
+        ":internal_headers",
         ":avutil",
         ":avcodec",
         ":avformat",
         ":avfilter",
         ":libavdevice/libavdevice.lds",
-        ":avdevice_textual_headers",
     ],
     linkopts = [
         "-Wl,-Bsymbolic",
