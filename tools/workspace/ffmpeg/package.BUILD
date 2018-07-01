@@ -48,6 +48,8 @@ cc_library(
     hdrs = glob(["**/*.h"]) + [
         "private/avversion.h",
         "private/config.h",
+        "libavutil/avconfig.h",
+        "libavutil/ffversion.h",
     ],
     textual_hdrs = glob(["**/*.c", "**/*.S", "**/*.asm", "**/*.inc"]),
     includes = ["."],
@@ -83,9 +85,21 @@ COMMON_COPTS = [
     "//conditions:default" : [],
 })
 
+BIN_LINKOPTS = [
+    "-Wl,-Bsymbolic",
+] + select({
+    "@com_github_mjbots_bazel_deps//conditions:clang" : [
+        "-Wl,-znotext",
+    ],
+    "//conditions:default" : [],
+})
+
 cc_library(
     name = "avutil",
-    hdrs = @AVUTIL_HEADERS@,
+    hdrs = @AVUTIL_HEADERS@ + [
+        "libavutil/avconfig.h",
+        "libavutil/ffversion.h",
+    ],
     srcs = [":libavutil.so"],
     includes = ["."],
 )
@@ -106,15 +120,12 @@ cc_library(
 cc_binary(
     name = "libavutil.so",
     linkshared = True,
-    srcs = ["libavutil/" + x for x in [
-        "avconfig.h",
-    ]] + @AVUTIL_SOURCES@ +select({
+    srcs = @AVUTIL_SOURCES@ +select({
         "@com_github_mjbots_bazel_deps//conditions:arm" : @AVUTIL_ARM_SOURCES@,
         "@com_github_mjbots_bazel_deps//conditions:x86_64" : (@AVUTIL_X86_SOURCES@ + [":avutil_x86asm"]),
     }),
     copts = COMMON_COPTS,
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavutil/libavutil.lds)",
     ],
     deps = [
@@ -156,8 +167,7 @@ cc_binary(
         ":avutil",
         ":libswscale/libswscale.lds",
     ],
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libswscale/libswscale.lds)",
     ],
 )
@@ -183,8 +193,7 @@ cc_binary(
         ":avutil",
         ":libswresample/libswresample.lds",
     ],
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libswresample/libswresample.lds)",
     ],
 )
@@ -217,9 +226,9 @@ cc_binary(
         ":avutil",
         ":swresample",
         ":libavcodec/libavcodec.lds",
+        "@zlib",
     ],
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavcodec/libavcodec.lds)",
     ],
 )
@@ -249,8 +258,7 @@ cc_binary(
         ":libavformat/libavformat.lds",
         "@bzip2",
     ],
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavformat/libavformat.lds)",
     ],
 )
@@ -283,8 +291,7 @@ cc_binary(
         ":swscale",
         ":libavfilter/libavfilter.lds",
     ],
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavfilter/libavfilter.lds)",
     ],
 )
@@ -310,8 +317,7 @@ cc_binary(
         ":avfilter",
         ":libavdevice/libavdevice.lds",
     ],
-    linkopts = [
-        "-Wl,-Bsymbolic",
+    linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavdevice/libavdevice.lds)",
     ],
 )
