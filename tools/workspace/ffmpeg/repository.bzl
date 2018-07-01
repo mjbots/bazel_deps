@@ -90,14 +90,44 @@ def _sourcify(ctx, name):
     for extension in [".c", ".asm", ".S"]:
         maybe_name = name.replace(".o", extension)
         if ctx.execute(["ls", maybe_name]).return_code == 0:
-            if extension == ".asm":
-                # we have these handled by a special rule, just look
-                # for the .o file.
-                return name
-
             return maybe_name
 
     fail("Could not find source for: " + name)
+
+def _get_sources(ctx, makefile_path, config_dict, prefix):
+    '''Return a dict with keys:
+      sources - the list of sources as configured for this rule
+      x86asm - the list of x86 assembler files
+    '''
+
+    makefile_result = ctx.execute(["cat", makefile_path])
+    if makefile_result.return_code != 0:
+        return {
+            "sources" : [],
+            "x86asm" : [],
+            "headers" : [],
+        }
+
+    makefile_contents = makefile_result.stdout
+    make_dict = makefile_parse(makefile_contents)
+    optional = _parse_optional(make_dict)
+    optional_sources = flatten_config(optional, config_dict, prefix)
+    fixed_sources = [
+        prefix + x
+        for x in _flatten([make_dict.get(x + "OBJS", [])
+                           for x in CONFIG_PREFIXES.keys()])
+        if x.find('$') == -1]
+
+    all_sources = dict(
+        [(_sourcify(ctx, x), None)
+         for x in optional_sources + fixed_sources]).keys()
+
+    return {
+        "sources" : [x for x in all_sources if not x.endswith(".asm")],
+        "x86asm" : [x for x in all_sources if x.endswith(".asm")],
+        "headers" : [prefix + x for x in make_dict.get("HEADERS", [])],
+    }
+
 
 def _impl(repository_ctx):
     repository_ctx.download_and_extract(
@@ -111,7 +141,6 @@ def _impl(repository_ctx):
     patch(repository_ctx)
 
     modules = [
-        "avresample",
         "swresample",
         "swscale",
         "avutil",
@@ -135,60 +164,42 @@ def _impl(repository_ctx):
     substitutions['@CONFIG_VARS@'] = _format_list(config_vars)
     asm_files = []
 
+    substitutions['@MODULES@'] = _format_list(modules)
+
     for module in modules:
         prefix = "lib{}/".format(module)
 
-        makefile = repository_ctx.execute(["cat", "lib{}/Makefile".format(module)]).stdout
-        make_dict = makefile_parse(makefile)
-        optional = _parse_optional(make_dict)
-        optional_sources = flatten_config(optional, config_dict, prefix)
-        fixed_sources = [
-            prefix + x
-            for x in _flatten([make_dict.get(x + "OBJS", []) for x in CONFIG_PREFIXES.keys()])
-            if x.find('$') == -1]
+        makefile_data = _get_sources(
+            repository_ctx, "lib{}/Makefile".format(module),
+            config_dict, prefix)
 
-        all_sources = dict(
-            [(_sourcify(repository_ctx, x), None)
-             for x in optional_sources + fixed_sources]).keys()
-        asm_files += [x for x in all_sources if x.endswith(".o")]
+        substitutions["@{}_SOURCES@".format(module.upper())] = \
+            _format_list(makefile_data["sources"])
+        substitutions["@{}_HEADERS@".format(module.upper())] = \
+            _format_list(makefile_data["headers"])
 
-        substitutions['@{}_SOURCES@'.format(module.upper())] = _format_list(all_sources)
-        substitutions['@{}_HEADERS@'.format(module.upper())] = (
-            _format_list([prefix + x
-                          for x in make_dict.get('HEADERS', [])]))
+        if len(makefile_data["x86asm"]):
+            fail("unexpected x86 assembler at the top level")
 
         # Now check for platform specific directories.
         for platform in ['arm', 'x86']:
-            platform_key = '@{}_{}_SOURCES@'.format(
+            makefile_data = _get_sources(
+                repository_ctx, "lib{}/{}/Makefile".format(module, platform),
+                config_dict, prefix)
+
+            platform_key_prefix = '@{}_{}_'.format(
                 module.upper(), platform.upper())
-            platform_makefile_result = repository_ctx.execute(
-                ["cat", "lib{}/{}/Makefile".format(module, platform)])
-            if platform_makefile_result.return_code != 0:
-                substitutions[platform_key] = "[]"
-                continue
-            platform_makefile = platform_makefile_result.stdout
-            platform_dict = makefile_parse(platform_makefile)
-            platform_optional = _parse_optional(platform_dict)
-            platform_optional_sources = flatten_config(
-                platform_optional, config_dict, prefix)
+            platform_key = platform_key_prefix + "SOURCES@"
+            platform_x86asm = platform_key_prefix + "X86ASM@"
 
-            platform_fixed_sources = [
-                prefix + x
-                for x in _flatten([platform_dict.get(x + "OBJS", []) for x in CONFIG_PREFIXES.keys()])
-                if x.find('$') == -1]
+            substitutions[platform_key] = \
+                _format_list(makefile_data["sources"])
 
-            platform_first_sources = dict(
-                [(_sourcify(repository_ctx, x), None)
-                 for x in platform_optional_sources + platform_fixed_sources]).keys()
-            platform_all_sources = [x for x in platform_first_sources
-                                    if not x.endswith(".o")]
+            substitutions[platform_x86asm] = \
+                _format_list(makefile_data["x86asm"])
 
-            asm_files += [x for x in platform_first_sources if x.endswith(".o")]
-
-            substitutions[platform_key] = _format_list(platform_all_sources)
-
-    substitutions["@ASM_FILES@"] = _format_list(
-        [x.replace(".o", ".asm") for x in asm_files])
+            if len(makefile_data["headers"]):
+                fail("unexpected headers in platform directory")
 
     _make_list(repository_ctx, config_dict,
                predicate = ["_ENCODER 1", "_DECODER 1"],
