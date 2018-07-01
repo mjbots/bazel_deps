@@ -54,9 +54,6 @@ SRCS_X = [
     "encoder/lookahead.c",
 
     "common/threadpool.c",
-
-    "common/x86/mc-c.c",
-    "common/x86/predict-c.c",
 ]
 
 TEXTUAL_HDRS = [
@@ -135,7 +132,7 @@ genrule(
     outs = ["x264private/config.h"],
     cmd = """cat > $@ <<EOF
 #define HAVE_MALLOC_H 1
-#define ARCH_X86_64 1
+#define ARCH_X86_64 0
 #define SYS_LINUX 1
 #define STACK_ALIGNMENT 64
 #define HAVE_POSIXTHREAD 1
@@ -145,7 +142,7 @@ genrule(
 #define HAVE_STRTOK_R 1
 #define HAVE_MMAP 1
 #define HAVE_THP 1
-#define HAVE_VECTOREXT 1
+#define HAVE_VECTOREXT 0
 #define fseek fseeko
 #define ftell ftello
 #define HAVE_BITDEPTH8 1
