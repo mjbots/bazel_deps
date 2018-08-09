@@ -19,10 +19,10 @@ load("@com_github_mjbots_bazel_deps//tools/workspace:makefile.bzl", "makefile_pa
 def _impl(repository_ctx):
     repository_ctx.download_and_extract(
         url = [
-            "https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.8.1.tar.bz2"
+            "https://www.freedesktop.org/software/harfbuzz/release/harfbuzz-1.8.7.tar.bz2"
         ],
-        sha256 = "fbed6392ddb085e45e6090a9f389f72926d0e355f4b0a2ef51d35cf21686df45",
-        stripPrefix = "harfbuzz-1.8.1",
+        sha256 = "96e0c8ac6fd25da783052f0b65f2f0314e6a63af94e87ca127ae2d8e39306453",
+        stripPrefix = "harfbuzz-1.8.7",
     )
 
     Makefile_sources = makefile_parse(repository_ctx.execute(
