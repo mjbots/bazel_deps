@@ -613,6 +613,7 @@ cc_library(
     deps = [
         ":gio_headers",
         "@pcre",
+        "@zlib",
     ],
     srcs = [
         "glibprivate/config.h",

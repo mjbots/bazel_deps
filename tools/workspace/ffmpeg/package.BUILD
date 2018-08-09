@@ -257,6 +257,7 @@ cc_binary(
         ":avcodec",
         ":libavformat/libavformat.lds",
         "@bzip2",
+        "@zlib",
     ],
     linkopts = BIN_LINKOPTS + [
         "-Wl,--version-script,$(location libavformat/libavformat.lds)",
