@@ -479,7 +479,6 @@ autoconf_standard_defines = [
     "HAVE_WIDECAR",
     "HAVE_WINT_T",
     "HAVE_XATTR",
-    "HAVE_XLOCALE_H",
     "HAVE_ZLIB",
     "HAVE__BOOL",
     "SIZEOF_CHAR=1",
