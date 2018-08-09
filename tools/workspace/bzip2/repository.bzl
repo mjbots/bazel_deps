@@ -21,6 +21,7 @@ def bzip2_repository(name):
     http_archive(
         name = name,
         urls = [
+            "https://fossies.org/linux/misc/bzip2-1.0.6.tar.gz",
             "http://www.bzip.org/1.0.6/bzip2-1.0.6.tar.gz",
         ],
         sha256 = "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd",
