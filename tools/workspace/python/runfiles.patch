@@ -1,0 +1,12 @@
+diff -ur Python-3.6.5/Modules/getpath.c Python-3.6.5.built/Modules/getpath.c
+--- Modules/getpath.c	2018-03-28 05:19:31.000000000 -0400
++++ Modules/getpath.c	2018-08-12 08:20:17.028986026 -0400
+@@ -494,7 +494,7 @@
+     _pythonpath = Py_DecodeLocale(PYTHONPATH, NULL);
+     _prefix = Py_DecodeLocale(PREFIX, NULL);
+     _exec_prefix = Py_DecodeLocale(EXEC_PREFIX, NULL);
+-    lib_python = Py_DecodeLocale("lib/python" VERSION, NULL);
++    lib_python = Py_DecodeLocale("python.runfiles/python/lib/python" VERSION, NULL);
+
+     if (!_pythonpath || !_prefix || !_exec_prefix || !lib_python) {
+         Py_FatalError(

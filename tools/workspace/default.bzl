@@ -45,6 +45,7 @@ load("//tools/workspace/nasm:repository.bzl", "nasm_repository")
 load("//tools/workspace/pango:repository.bzl", "pango_repository")
 load("//tools/workspace/pcre:repository.bzl", "pcre_repository")
 load("//tools/workspace/pixman:repository.bzl", "pixman_repository")
+load("//tools/workspace/python:repository.bzl", "python_repository")
 load("//tools/workspace/snappy:repository.bzl", "snappy_repository")
 load("//tools/workspace/util-linux:repository.bzl", "util_linux_repository")
 load("//tools/workspace/videoproto:repository.bzl", "videoproto_repository")
@@ -117,6 +118,8 @@ def add_default_repositories(excludes = []):
         pcre_repository(name = "pcre")
     if "pixman" not in excludes:
         pixman_repository(name = "pixman")
+    if "python" not in excludes:
+        python_repository(name = "python")
     if "snappy" not in excludes:
         snappy_repository(name = "snappy")
     if "util-linux" not in excludes:

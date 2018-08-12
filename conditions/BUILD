@@ -31,6 +31,13 @@ config_setting(
 )
 
 config_setting(
+    name = "long_double_16bytes",
+    values = {
+        "cpu" : "k8",
+    },
+)
+
+config_setting(
     name = "sizet_long",
     values = {
         "cpu" : "k8",
@@ -60,6 +67,13 @@ config_setting(
 
 config_setting(
     name = "long_4bytes",
+    values = {
+        "cpu" : "armeabihf",
+    },
+)
+
+config_setting(
+    name = "long_double_8bytes",
     values = {
         "cpu" : "armeabihf",
     },
