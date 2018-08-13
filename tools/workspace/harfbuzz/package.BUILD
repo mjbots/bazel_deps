@@ -63,9 +63,11 @@ cc_library(
 
 cc_library(
     name = "harfbuzz",
-    srcs = ["src/" + x for x in HBSOURCES] + COMMON_SRCS,
+    hdrs = ["src/" + x for x in HBHEADERS],
+    srcs = ["src/" + x for x in HBSOURCES + HB_SUBSET_headers] + COMMON_SRCS,
     copts = COMMON_COPTS,
-    deps = [":harfbuzz_subset", "@glib", "@freetype"],
+    includes = ["src", "src/hb-ucdn"],
+    deps = ["@glib", "@freetype"],
 )
 
 template_file(
