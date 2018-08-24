@@ -44,6 +44,7 @@ load("//tools/workspace/libxext:repository.bzl", "libxext_repository")
 load("//tools/workspace/libxv:repository.bzl", "libxv_repository")
 load("//tools/workspace/log4cpp:repository.bzl", "log4cpp_repository")
 load("//tools/workspace/nasm:repository.bzl", "nasm_repository")
+load("//tools/workspace/opencv:repository.bzl", "opencv_repository")
 load("//tools/workspace/pango:repository.bzl", "pango_repository")
 load("//tools/workspace/pcre:repository.bzl", "pcre_repository")
 load("//tools/workspace/pixman:repository.bzl", "pixman_repository")
@@ -57,7 +58,12 @@ load("//tools/workspace/xorgproto:repository.bzl", "xorgproto_repository")
 load("//tools/workspace/xtrans:repository.bzl", "xtrans_repository")
 load("//tools/workspace/zlib:repository.bzl", "zlib_repository")
 
-def add_default_repositories(excludes = []):
+def get_default_config():
+    return {
+        "opts" : ["sse", "sse2"],
+    }
+
+def add_default_repositories(excludes = [], config = get_default_config()):
     if "boost" not in excludes:
         boost_repository(name = "boost")
     if "bzip2" not in excludes:
@@ -118,6 +124,8 @@ def add_default_repositories(excludes = []):
         log4cpp_repository(name = "log4cpp")
     if "nasm" not in excludes:
         nasm_repository(name = "nasm")
+    if "opencv" not in excludes:
+        opencv_repository(name = "opencv", config = config)
     if "pango" not in excludes:
         pango_repository(name = "pango")
     if "pcre" not in excludes:
