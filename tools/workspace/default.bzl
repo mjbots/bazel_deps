@@ -34,6 +34,7 @@ load("//tools/workspace/gst-plugins-ugly:repository.bzl", "gst_plugins_ugly_repo
 load("//tools/workspace/gst-rtsp-server:repository.bzl", "gst_rtsp_server_repository")
 load("//tools/workspace/harfbuzz:repository.bzl", "harfbuzz_repository")
 load("//tools/workspace/libffi:repository.bzl", "libffi_repository")
+load("//tools/workspace/libpng:repository.bzl", "libpng_repository")
 load("//tools/workspace/libx11:repository.bzl", "libx11_repository")
 load("//tools/workspace/libxau:repository.bzl", "libxau_repository")
 load("//tools/workspace/libxcb:repository.bzl", "libxcb_repository")
@@ -96,6 +97,8 @@ def add_default_repositories(excludes = []):
         harfbuzz_repository(name = "harfbuzz")
     if "libffi" not in excludes:
         libffi_repository(name = "libffi")
+    if "libpng" not in excludes:
+        libpng_repository(name = "libpng")
     if "libx11" not in excludes:
         libx11_repository(name = "libx11")
     if "libxau" not in excludes:
