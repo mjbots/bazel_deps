@@ -145,3 +145,22 @@ cc_library(
     ]],
     deps = [":boost", "@python//:headers"],
 )
+
+cc_library(
+    name = "chrono",
+    srcs = ["libs/chrono/src/" + x for x in [
+        "chrono.cpp",
+        "process_cpu_clocks.cpp",
+        "thread_clock.cpp",
+    ]],
+    deps = [":boost"],
+)
+
+cc_library(
+    name = "timer",
+    srcs = ["libs/timer/src/" + x for x in [
+        "auto_timers_construction.cpp",
+        "cpu_timer.cpp",
+    ]],
+    deps = [":boost", ":chrono"],
+)
