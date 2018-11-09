@@ -1,5 +1,0 @@
-build --python_path=/usr/bin/python3
-test --python_path=/usr/bin/python3
-
-build --define GCC=true
-test --define GCC=true

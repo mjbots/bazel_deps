@@ -20,3 +20,9 @@ py_binary(
     name = "autoconf_config_gen",
     srcs = ["autoconf_config_gen.py"],
 )
+
+py_runtime(
+    name = "system_python3",
+    files = [],
+    interpreter_path = "/usr/bin/python3",
+)
