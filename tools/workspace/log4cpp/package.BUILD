@@ -140,6 +140,7 @@ cc_library(
         "-Wno-deprecated-declarations",
         "-Wno-unused-variable",
         "-Wno-parentheses",
+        "-Wno-unused-parameter",
     ],
     defines = [
         "LOG4CPP_HAVE_SSTREAM",

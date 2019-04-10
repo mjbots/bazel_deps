@@ -20,8 +20,8 @@ def log4cpp_repository(name):
     sha256 = None
 
     repo = "mjbots/log4cpp"
-    commit = "118e6b347b00bad11774801d13acb31be8b2b527"
-    sha256 = "3e92628d4633ace272eb5ce375fe7e72792a9a9acf2a9c238c93aab2e11da6b4"
+    commit = "0a9fb3d662c79b9480eb150c9b7ee3f4d87a6b08"
+    sha256 = "9015971c72eeb5d98eee1d99fc379b9be04e8503443f22e8db588b364c1721c4"
 
     http_archive(
         name = name,
