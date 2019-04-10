@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2019 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,12 +34,12 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "ffmpeg",
     deps = [
-        ":swscale",
-        ":swresample",
-        ":avformat",
-        ":avfilter",
-        ":avdevice",
-        ":avcodec",
+        ":swscale_lib",
+        ":swresample_lib",
+        ":avformat_lib",
+        ":avfilter_lib",
+        ":avdevice_lib",
+        ":avcodec_lib",
     ],
 )
 
@@ -95,7 +95,7 @@ BIN_LINKOPTS = [
 })
 
 cc_library(
-    name = "avutil",
+    name = "avutil_lib",
     hdrs = @AVUTIL_HEADERS@ + [
         "libavutil/avconfig.h",
         "libavutil/ffversion.h",
@@ -147,11 +147,11 @@ generate_file(
 )
 
 cc_library(
-    name = "swscale",
+    name = "swscale_lib",
     hdrs = @SWSCALE_HEADERS@,
     srcs = [":libswscale.so"],
     includes = ["."],
-    deps = [":avutil"],
+    deps = [":avutil_lib"],
 )
 
 cc_binary(
@@ -164,7 +164,7 @@ cc_binary(
     copts = COMMON_COPTS,
     deps = [
         ":internal_headers",
-        ":avutil",
+        ":avutil_lib",
         ":libswscale/libswscale.lds",
     ],
     linkopts = BIN_LINKOPTS + [
@@ -173,11 +173,11 @@ cc_binary(
 )
 
 cc_library(
-    name = "swresample",
+    name = "swresample_lib",
     hdrs = @SWRESAMPLE_HEADERS@,
     srcs = [":libswresample.so"],
     includes = ["."],
-    deps = [":avutil"],
+    deps = [":avutil_lib"],
 )
 
 cc_binary(
@@ -190,7 +190,7 @@ cc_binary(
     copts = COMMON_COPTS,
     deps = [
         ":internal_headers",
-        ":avutil",
+        ":avutil_lib",
         ":libswresample/libswresample.lds",
     ],
     linkopts = BIN_LINKOPTS + [
@@ -199,11 +199,11 @@ cc_binary(
 )
 
 cc_library(
-    name = "avcodec",
+    name = "avcodec_lib",
     hdrs = @AVCODEC_HEADERS@,
     srcs = [":libavcodec.so"],
     includes = ["."],
-    deps = [":avutil", ":swresample"],
+    deps = [":avutil_lib", ":swresample_lib"],
 )
 
 cc_binary(
@@ -223,8 +223,8 @@ cc_binary(
     ],
     deps = [
         ":internal_headers",
-        ":avutil",
-        ":swresample",
+        ":avutil_lib",
+        ":swresample_lib",
         ":libavcodec/libavcodec.lds",
         "@zlib",
     ],
@@ -234,11 +234,11 @@ cc_binary(
 )
 
 cc_library(
-    name = "avformat",
+    name = "avformat_lib",
     hdrs = @AVFORMAT_HEADERS@,
     srcs = [":libavformat.so"],
     includes = ["."],
-    deps = [":avutil", ":avcodec"],
+    deps = [":avutil_lib", ":avcodec_lib"],
 )
 
 cc_binary(
@@ -253,8 +253,8 @@ cc_binary(
     ],
     deps = [
         ":internal_headers",
-        ":avutil",
-        ":avcodec",
+        ":avutil_lib",
+        ":avcodec_lib",
         ":libavformat/libavformat.lds",
         "@bzip2",
         "@zlib",
@@ -265,11 +265,11 @@ cc_binary(
 )
 
 cc_library(
-    name = "avfilter",
+    name = "avfilter_lib",
     hdrs = @AVFILTER_HEADERS@,
     srcs = [":libavfilter.so"],
     includes = ["."],
-    deps = [":avutil", ":avcodec", ":avformat", ":swscale"],
+    deps = [":avutil_lib", ":avcodec_lib", ":avformat_lib", ":swscale_lib"],
 )
 
 cc_binary(
@@ -286,10 +286,10 @@ cc_binary(
     ],
     deps = [
         ":internal_headers",
-        ":avutil",
-        ":avcodec",
-        ":avformat",
-        ":swscale",
+        ":avutil_lib",
+        ":avcodec_lib",
+        ":avformat_lib",
+        ":swscale_lib",
         ":libavfilter/libavfilter.lds",
     ],
     linkopts = BIN_LINKOPTS + [
@@ -298,11 +298,11 @@ cc_binary(
 )
 
 cc_library(
-    name = "avdevice",
+    name = "avdevice_lib",
     hdrs = @AVDEVICE_HEADERS@,
     srcs = [":libavdevice.so"],
     includes = ["."],
-    deps = [":avutil", ":avcodec", ":avformat", ":avfilter"],
+    deps = [":avutil_lib", ":avcodec_lib", ":avformat_lib", ":avfilter_lib"],
 )
 
 cc_binary(
@@ -312,10 +312,10 @@ cc_binary(
     copts = COMMON_COPTS,
     deps = [
         ":internal_headers",
-        ":avutil",
-        ":avcodec",
-        ":avformat",
-        ":avfilter",
+        ":avutil_lib",
+        ":avcodec_lib",
+        ":avformat_lib",
+        ":avfilter_lib",
         ":libavdevice/libavdevice.lds",
     ],
     linkopts = BIN_LINKOPTS + [
