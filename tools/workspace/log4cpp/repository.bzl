@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2019 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,15 +16,18 @@
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-
 def log4cpp_repository(name):
+    sha256 = None
+
+    repo = "mjbots/log4cpp"
+    commit = "118e6b347b00bad11774801d13acb31be8b2b527"
+    sha256 = "3e92628d4633ace272eb5ce375fe7e72792a9a9acf2a9c238c93aab2e11da6b4"
+
     http_archive(
         name = name,
-        urls = [
-            "https://sourceforge.net/projects/log4cpp/files/log4cpp-1.1.x%20%28new%29/log4cpp-1.1/log4cpp-1.1.3.tar.gz/download",
-        ],
-        sha256 = "2cbbea55a5d6895c9f0116a9a9ce3afb86df383cd05c9d6c1a4238e5e5c8f51d",
-        strip_prefix = "log4cpp",
+        url = "https://github.com/{repo}/archive/{commit}.zip".format(
+            repo=repo, commit=commit),
+        strip_prefix = "{}-{}".format(repo.rsplit('/', 1)[-1], commit),
+        sha256 = sha256 or "0000000000000000000000000000000000000000000000000000000000000000",
         build_file = Label("//tools/workspace/log4cpp:package.BUILD"),
-        type = "tar.gz",
     )
