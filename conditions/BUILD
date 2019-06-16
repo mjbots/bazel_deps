@@ -17,45 +17,50 @@
 package(default_visibility = ["//visibility:public"])
 
 config_setting(
-    name = "sizet_8bytes",
+    name = "cpu_local",
+    values = {
+        "cpu" : "local",
+    },
+)
+
+config_setting(
+    name = "cpu_k8",
     values = {
         "cpu" : "k8",
     },
 )
 
-config_setting(
-    name = "long_8bytes",
-    values = {
-        "cpu" : "k8",
-    },
-)
-
-config_setting(
-    name = "long_double_16bytes",
-    values = {
-        "cpu" : "k8",
-    },
-)
-
-config_setting(
-    name = "sizet_long",
-    values = {
-        "cpu" : "k8",
-    },
-)
-
-config_setting(
+alias(
     name = "x86_64",
-    values = {
-        "cpu" : "k8",
-    },
+    actual = select({
+        ":cpu_local" : ":cpu_local",
+        ":cpu_k8" : ":cpu_k8",
+    }),
 )
 
-config_setting(
+alias(
+    name = "sizet_8bytes",
+    actual = ":x86_64",
+)
+
+alias(
+    name = "long_8bytes",
+    actual = ":x86_64",
+)
+
+alias(
+    name = "long_double_16bytes",
+    actual = ":x86_64",
+)
+
+alias(
+    name = "sizet_long",
+    actual = ":x86_64",
+)
+
+alias(
     name = "has_uint128",
-    values = {
-        "cpu" : "k8",
-    },
+    actual = ":x86_64",
 )
 
 config_setting(
