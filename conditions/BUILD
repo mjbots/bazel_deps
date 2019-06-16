@@ -30,11 +30,19 @@ config_setting(
     },
 )
 
+config_setting(
+    name = "cpu_darwin_x86_64",
+    values = {
+        "cpu" : "darwin_x86_64",
+    },
+)
+
 alias(
     name = "x86_64",
     actual = select({
         ":cpu_local" : ":cpu_local",
         ":cpu_k8" : ":cpu_k8",
+        ":cpu_darwin_x86_64" : ":cpu_darwin_x86_64",
         "//conditions:default" : ":cpu_local",
     }),
 )
