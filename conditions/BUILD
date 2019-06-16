@@ -35,6 +35,7 @@ alias(
     actual = select({
         ":cpu_local" : ":cpu_local",
         ":cpu_k8" : ":cpu_k8",
+        "//conditions:default" : ":cpu_local",
     }),
 )
 
