@@ -48,6 +48,15 @@ alias(
 )
 
 alias(
+    name = "linux",
+    actual = select({
+        ":cpu_local" : ":cpu_local",
+        ":cpu_k8" : ":cpu_k8",
+        "//conditions:default" : ":cpu_local",
+    }),
+)
+
+alias(
     name = "sizet_8bytes",
     actual = ":x86_64",
 )

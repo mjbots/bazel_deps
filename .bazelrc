@@ -1,5 +1,2 @@
-build --python_top=//tools/workspace:system_python3
-test --python_top=//tools/workspace:system_python3
-
 build --define GCC=true
 test --define GCC=true
