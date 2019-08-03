@@ -1,5 +1,3 @@
- * opencv is depending upon system zlib
-
  * Add bison and flex and use them rather than host
  * Get ORC acceleration working for gst-plugins-base
  * Fix all remaining warnings for x86 and arm

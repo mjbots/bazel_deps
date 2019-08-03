@@ -39,7 +39,7 @@ opencv_module(
         "stat" : ["sse4_2", "avx"],
         "mathfuncs_core" : ["sse2", "avx", "avx2"],
     },
-    deps = ["@eigen"],
+    deps = ["@eigen", "@zlib"],
 )
 
 opencv_module(
