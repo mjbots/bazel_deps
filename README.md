@@ -22,7 +22,7 @@ def bazel_deps_repository(name):
         # Try the following empty sha256 hash first, then replace with whatever
         # bazel says it is looking for once it complains.
         sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        strip_prefix = "bazel-deps-{}".format(commit),
+        strip_prefix = "bazel_deps-{}".format(commit),
     )
 ```
 
