@@ -33,6 +33,7 @@ load("//tools/workspace/gst-plugins-good:repository.bzl", "gst_plugins_good_repo
 load("//tools/workspace/gst-plugins-ugly:repository.bzl", "gst_plugins_ugly_repository")
 load("//tools/workspace/gst-rtsp-server:repository.bzl", "gst_rtsp_server_repository")
 load("//tools/workspace/harfbuzz:repository.bzl", "harfbuzz_repository")
+load("//tools/workspace/json:repository.bzl", "json_repository")
 load("//tools/workspace/libffi:repository.bzl", "libffi_repository")
 load("//tools/workspace/libjpeg:repository.bzl", "libjpeg_repository")
 load("//tools/workspace/libpng:repository.bzl", "libpng_repository")
@@ -103,6 +104,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         gst_rtsp_server_repository(name = "gst-rtsp-server")
     if "harfbuzz" not in excludes:
         harfbuzz_repository(name = "harfbuzz")
+    if "json" not in excludes:
+        json_repository(name = "json")
     if "libffi" not in excludes:
         libffi_repository(name = "libffi")
     if "libjpeg" not in excludes:
