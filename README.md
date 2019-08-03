@@ -43,7 +43,7 @@ At least an empty `tools/workspace/BUILD` is required.
 In `WORKSPACE`:
 
 ```
-load("//tools/workspace/default.bzl", "add_default_repositories")
+load("//tools/workspace:default.bzl", "add_default_repositories")
 
 add_default_repositories()
 
