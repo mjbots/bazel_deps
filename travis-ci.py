@@ -14,9 +14,9 @@ ALWAYS = """
 
 
 CMDS = [
-    "./tools/bazel test @ffmpeg//...",
-    "./tools/bazel test @opencv//...",
-    "./tools/bazel test //:everything",
+    "./tools/bazel build @ffmpeg//...",
+    "./tools/bazel build @opencv//...",
+    "./tools/bazel build //:everything",
 ]
 
 def main():
