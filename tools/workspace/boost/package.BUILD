@@ -166,6 +166,61 @@ cc_library(
 )
 
 cc_library(
+    name = "log",
+    srcs = ["libs/log/src/" + x for x in [
+        "attribute_name.cpp",
+        "attribute_set.cpp",
+        "attribute_value_set.cpp",
+        "code_conversion.cpp",
+        "core.cpp",
+        "record_ostream.cpp",
+        "severity_level.cpp",
+        "global_logger_storage.cpp",
+        "named_scope.cpp",
+        "process_name.cpp",
+        "process_id.cpp",
+        "thread_id.cpp",
+        "timer.cpp",
+        "exceptions.cpp",
+        "default_attribute_names.cpp",
+        "default_sink.cpp",
+        "text_ostream_backend.cpp",
+        "text_file_backend.cpp",
+        "text_multifile_backend.cpp",
+        "thread_specific.cpp",
+        "once_block.cpp",
+        "timestamp.cpp",
+        "threadsafe_queue.cpp",
+        "event.cpp",
+        "trivial.cpp",
+        "spirit_encoding.cpp",
+        "format_parser.cpp",
+        "date_time_format_parser.cpp",
+        "named_scope_format_parser.cpp",
+        "unhandled_exception_count.cpp",
+        "permissions.cpp",
+        "dump.cpp",
+
+        "alignment_gap_between.hpp",
+        "attribute_set_impl.hpp",
+        "bit_tools.hpp",
+        "default_sink.hpp",
+        "id_formatting.hpp",
+        "murmur3.hpp",
+        "spirit_encoding.hpp",
+        "stateless_allocator.hpp",
+        "unique_ptr.hpp",
+    ]],
+    deps = [":boost"],
+    defines = [
+        "BOOST_LOG_WITHOUT_SYSLOG",
+        "BOOST_LOG_WITHOUT_IPC",
+        "BOOST_LOG_WITHOUT_EVENT_LOG",
+        "BOOST_LOG_WITHOUT_DEBUG_OUTPUT",
+    ],
+)
+
+cc_library(
     name = "all",
     deps = [
         ":boost",
@@ -177,5 +232,6 @@ cc_library(
         ":python",
         ":chrono",
         ":timer",
+        ":log",
     ],
 )
