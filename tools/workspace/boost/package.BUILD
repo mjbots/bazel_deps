@@ -164,3 +164,18 @@ cc_library(
     ]],
     deps = [":boost", ":chrono"],
 )
+
+cc_library(
+    name = "all",
+    deps = [
+        ":boost",
+        ":date_time",
+        ":filesystem",
+        ":program_options",
+        ":system",
+        ":test",
+        ":python",
+        ":chrono",
+        ":timer",
+    ],
+)

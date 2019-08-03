@@ -19,7 +19,7 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "everything",
     deps = [
-        "@boost",
+        "@boost//:all",
         "@bzip2",
         "@cairo",
         "@eigen",
