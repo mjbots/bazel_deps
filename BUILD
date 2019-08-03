@@ -55,6 +55,7 @@ cc_library(
         "@pixman",
         "@python",
         "@snappy",
+        "@spdlog",
         "@util-linux",
         "@videoproto",
         "@x264",
