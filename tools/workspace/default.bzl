@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2019 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -50,6 +50,7 @@ load("//tools/workspace/pcre:repository.bzl", "pcre_repository")
 load("//tools/workspace/pixman:repository.bzl", "pixman_repository")
 load("//tools/workspace/python:repository.bzl", "python_repository")
 load("//tools/workspace/snappy:repository.bzl", "snappy_repository")
+load("//tools/workspace/spdlog:repository.bzl", "spdlog_repository")
 load("//tools/workspace/util-linux:repository.bzl", "util_linux_repository")
 load("//tools/workspace/videoproto:repository.bzl", "videoproto_repository")
 load("//tools/workspace/x264:repository.bzl", "x264_repository")
@@ -136,6 +137,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         python_repository(name = "python")
     if "snappy" not in excludes:
         snappy_repository(name = "snappy")
+    if "spdlog" not in excludes:
+        spdlog_repository(name = "spdlog")
     if "util-linux" not in excludes:
         util_linux_repository(name = "util-linux")
     if "videoproto" not in excludes:
