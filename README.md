@@ -4,6 +4,8 @@ This contains a set of open source packages configured to build within
 the bazel (https://bazel.build) build system.  Currently supported
 platforms are x86_64 and armv7.
 
+ - travis-ci [![Build Status](https://travis-ci.org/mjbots/bazel_deps.svg?branch=master)](https://travis-ci.org/mjbots/bazel_deps)
+
 ## Example Usage ##
 
 In `tools/workspace/bazel_deps/repository.bzl`
