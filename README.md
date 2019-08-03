@@ -19,7 +19,9 @@ def bazel_deps_repository(name):
     http_archive(
         name = name,
         url = "https://github.com/mjbots/bazel_deps/archive/{}.zip".format(commit),
-        sha256 = "XXX",
+        # Try the following empty sha256 hash first, then replace with whatever
+        # bazel says it is looking for once it complains.
+        sha256 = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         strip_prefix = "bazel-deps-{}".format(commit),
     )
 ```
