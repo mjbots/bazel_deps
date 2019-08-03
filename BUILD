@@ -38,6 +38,7 @@ cc_library(
         "@gstreamer",
         "@gst-rtsp-server",
         "@harfbuzz",
+        "@json",
         "@libffi",
         "@libjpeg",
         "@libpng",
