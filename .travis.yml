@@ -1,0 +1,13 @@
+jobs:
+  include:
+    - stage: build0
+      script: ./travis-ci.py 0
+    - stage: build1
+      script: ./travis-ci.py 1
+    - stage: build2
+      script: ./travis-ci.py 2
+dist: bionic
+language: cpp
+cache:
+   directories:
+    - $HOME/.cache/bazel/

@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2019 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,6 +39,8 @@ cc_library(
         "@gst-rtsp-server",
         "@harfbuzz",
         "@libffi",
+        "@libjpeg",
+        "@libpng",
         "@libx11",
         "@libxau",
         "@libxcb",
@@ -46,9 +48,12 @@ cc_library(
         "@libxext",
         "@libxv",
         "@log4cpp",
+        "@nasm",
+        "@opencv",
         "@pango",
         "@pcre",
         "@pixman",
+        "@python",
         "@snappy",
         "@util-linux",
         "@videoproto",
