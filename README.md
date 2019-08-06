@@ -17,7 +17,7 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 def bazel_deps_repository(name):
     commit = "XXX"
     http_archive(
-        name = name,
+        name = "com_github_mjbots_bazel_deps",
         url = "https://github.com/mjbots/bazel_deps/archive/{}.zip".format(commit),
         # Try the following empty sha256 hash first, then replace with whatever
         # bazel says it is looking for once it complains.
@@ -35,7 +35,7 @@ load("//tools/workspace/bazel_deps:repository.bzl", "bazel_deps_repository")
 
 def add_default_repositories(excludes = []):
     if "bazel_deps" not in excludes:
-        bazel_deps_repository(name = "bazel_deps")
+        bazel_deps_repository()
 ```
 
 At least an empty `tools/workspace/BUILD` is required.
@@ -47,7 +47,7 @@ load("//tools/workspace:default.bzl", "add_default_repositories")
 
 add_default_repositories()
 
-load("@bazel_deps//tools/workspace:default.bzl",
+load("@com_github_mjbots_bazel_deps//tools/workspace:default.bzl",
      bazel_deps_add = "add_default_repositories")
 bazel_deps_add()
 ```
