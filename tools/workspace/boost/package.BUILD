@@ -166,6 +166,19 @@ cc_library(
 )
 
 cc_library(
+    name = "thread",
+    srcs = ["libs/thread/src/" + x for x in [
+        "pthread/thread.cpp",
+        "pthread/once.cpp",
+        "future.cpp",
+    ]],
+    textual_hdrs = ["libs/thread/src/" + x for x in [
+        "pthread/once_atomic.cpp",
+    ]],
+    deps = [":boost"],
+)
+
+cc_library(
     name = "log",
     srcs = ["libs/log/src/" + x for x in [
         "attribute_name.cpp",
@@ -211,7 +224,7 @@ cc_library(
         "stateless_allocator.hpp",
         "unique_ptr.hpp",
     ]],
-    deps = [":boost"],
+    deps = [":boost", ":thread"],
     defines = [
         "BOOST_LOG_WITHOUT_SYSLOG",
         "BOOST_LOG_WITHOUT_IPC",
@@ -232,6 +245,7 @@ cc_library(
         ":python",
         ":chrono",
         ":timer",
+        ":thread",
         ":log",
     ],
 )
