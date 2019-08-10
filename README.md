@@ -1,8 +1,17 @@
 # Open-source bazel build file collection #
 
 This contains a set of open source packages configured to build within
-the bazel (https://bazel.build) build system.  Currently supported
-platforms are x86_64 and armv7.
+the bazel (https://bazel.build) build system.  Packages include:
+
+ * opencv
+ * ffmpeg (and many codecs)
+ * gstreamer (and many of its plugins, including X output)
+ * eigen
+ * boost
+ * python
+ * fmt
+
+Currently supported platforms are x86_64 and armv7.
 
  - travis-ci [![Build Status](https://travis-ci.org/mjbots/bazel_deps.svg?branch=master)](https://travis-ci.org/mjbots/bazel_deps)
 
