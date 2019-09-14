@@ -20,4 +20,7 @@ cc_library(
     name = "eigen",
     hdrs = glob(["Eigen/**"]),
     includes = ["."],
+    defines = [
+        "EIGEN_INITIALIZE_MATRICES_BY_ZERO",
+    ],
 )
