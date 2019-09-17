@@ -210,7 +210,6 @@ cc_library(
         "format_parser.cpp",
         "date_time_format_parser.cpp",
         "named_scope_format_parser.cpp",
-        "unhandled_exception_count.cpp",
         "permissions.cpp",
         "dump.cpp",
 
