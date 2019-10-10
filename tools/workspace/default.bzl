@@ -14,9 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+load("//tools/workspace/assimp:repository.bzl", "assimp_repository")
 load("//tools/workspace/boost:repository.bzl", "boost_repository")
 load("//tools/workspace/bzip2:repository.bzl", "bzip2_repository")
 load("//tools/workspace/cairo:repository.bzl", "cairo_repository")
+load("//tools/workspace/dart:repository.bzl", "dart_repository")
 load("//tools/workspace/eigen:repository.bzl", "eigen_repository")
 load("//tools/workspace/expat:repository.bzl", "expat_repository")
 load("//tools/workspace/ffmpeg:repository.bzl", "ffmpeg_repository")
@@ -52,6 +54,7 @@ load("//tools/workspace/pixman:repository.bzl", "pixman_repository")
 load("//tools/workspace/python:repository.bzl", "python_repository")
 load("//tools/workspace/snappy:repository.bzl", "snappy_repository")
 load("//tools/workspace/spdlog:repository.bzl", "spdlog_repository")
+load("//tools/workspace/utfcpp:repository.bzl", "utfcpp_repository")
 load("//tools/workspace/util-linux:repository.bzl", "util_linux_repository")
 load("//tools/workspace/videoproto:repository.bzl", "videoproto_repository")
 load("//tools/workspace/x264:repository.bzl", "x264_repository")
@@ -66,12 +69,16 @@ def get_default_config():
     }
 
 def add_default_repositories(excludes = [], config = get_default_config()):
+    if "assimp" not in excludes:
+        assimp_repository(name = "assimp")
     if "boost" not in excludes:
         boost_repository(name = "boost")
     if "bzip2" not in excludes:
         bzip2_repository(name = "bzip2")
     if "cairo" not in excludes:
         cairo_repository(name = "cairo")
+    if "dart" not in excludes:
+        dart_repository(name = "dart")
     if "eigen" not in excludes:
         eigen_repository(name = "eigen")
     if "expat" not in excludes:
@@ -142,6 +149,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         snappy_repository(name = "snappy")
     if "spdlog" not in excludes:
         spdlog_repository(name = "spdlog")
+    if "utfcpp" not in excludes:
+        utfcpp_repository(name = "utfcpp")
     if "util-linux" not in excludes:
         util_linux_repository(name = "util-linux")
     if "videoproto" not in excludes:

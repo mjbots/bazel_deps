@@ -1,2 +1,5 @@
 build --define GCC=true
 test --define GCC=true
+
+build --cxxopt -std=c++17
+test --cxxopt -std=c++17

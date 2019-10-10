@@ -19,9 +19,11 @@ package(default_visibility = ["//visibility:public"])
 cc_library(
     name = "everything",
     deps = [
+        "@assimp",
         "@boost//:all",
         "@bzip2",
         "@cairo",
+        "@dart",
         "@eigen",
         "@expat",
         "@ffmpeg",
@@ -57,6 +59,7 @@ cc_library(
         "@python",
         "@snappy",
         "@spdlog",
+        "@utfcpp",
         "@util-linux",
         "@videoproto",
         "@x264",
