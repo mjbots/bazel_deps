@@ -152,5 +152,8 @@ cc_library(
         "-DASSIMP_BUILD_NO_3MF_EXPORTER",
         "-DASSIMP_BUILD_NO_ASSJSON_EXPORTER",
     ],
-    deps = ["@utfcpp"],
+    deps = [
+        "@utfcpp",
+        "@zlib",
+    ],
 )
