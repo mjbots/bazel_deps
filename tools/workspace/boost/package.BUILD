@@ -49,6 +49,7 @@ cc_library(
         "portability.cpp",
         "unique_path.cpp",
         "utf8_codecvt_facet.cpp",
+        "error_handling.hpp",
     ]],
     copts = [
         "-Wno-deprecated-declarations",

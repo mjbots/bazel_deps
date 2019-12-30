@@ -21,10 +21,10 @@ def boost_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://managedway.dl.sourceforge.net/project/boost/boost/1.71.0/boost_1_71_0.tar.bz2",
-            "https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.bz2",
+            "https://managedway.dl.sourceforge.net/project/boost/boost/1.72.0/boost_1_72_0.tar.bz2",
+            "https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.tar.bz2",
         ],
-        sha256 = "d73a8da01e8bf8c7eda40b4c84915071a8c8a0df4a6734537ddde4a8580524ee",
-        strip_prefix = "boost_1_71_0",
+        sha256 = "59c9b274bc451cf91a9ba1dd2c7fdcaf5d60b1b3aa83f2c9fa143417cc660722",
+        strip_prefix = "boost_1_72_0",
         build_file = Label("//tools/workspace/boost:package.BUILD"),
     )
