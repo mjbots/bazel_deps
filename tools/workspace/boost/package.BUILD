@@ -43,6 +43,8 @@ cc_library(
     name = "filesystem",
     srcs = ["libs/filesystem/src/" + x for x in [
         "codecvt_error_category.cpp",
+        "exception.cpp",
+        "directory.cpp",
         "operations.cpp",
         "path.cpp",
         "path_traits.cpp",
