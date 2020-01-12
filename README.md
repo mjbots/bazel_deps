@@ -23,7 +23,7 @@ In `tools/workspace/bazel_deps/repository.bzl`
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 
-def bazel_deps_repository(name):
+def bazel_deps_repository():
     commit = "XXX"
     http_archive(
         name = "com_github_mjbots_bazel_deps",
