@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ def eigen_repository(name):
     http_archive(
         name = name,
         urls = [
-            "http://bitbucket.org/eigen/eigen/get/3.3.4.tar.bz2",
+            "http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2",
         ],
-        sha256 = "dd254beb0bafc695d0f62ae1a222ff85b52dbaa3a16f76e781dce22d0d20a4a6",
-        strip_prefix = "eigen-eigen-5a0156e40feb",
+        sha256 = "9f13cf90dedbe3e52a19f43000d71fdf72e986beb9a5436dddcd61ff9d77a3ce",
+        strip_prefix = "eigen-eigen-323c052e1731",
         build_file = Label("//tools/workspace/eigen:package.BUILD"),
     )
