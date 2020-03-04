@@ -92,8 +92,10 @@ autoconf_config(
     version = "8.42",
     defines = autoconf_standard_defines + [
         "LINK_SIZE=2",
+        "SUPPORT_UCP=1",
         "MATCH_LIMIT=1000000",
         "MATCH_LIMIT_RECURSION=MATCH_LIMIT",
+        "SUPPORT_UTF=1",
         "MAX_NAME_COUNT=10000",
         "MAX_NAME_SIZE=32",
         "NEWLINE=10",
