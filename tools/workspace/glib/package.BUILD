@@ -36,7 +36,10 @@ cc_library(
     ]) + [
         "glib/glibconfig.h",
     ],
-    deps = [":config"],
+    deps = [
+        ":config",
+        "@pcre",
+    ],
     copts = [
         "-I$(GENDIR)/external/glib/glibprivate",
         "-DGLIB_COMPILATION",
@@ -157,7 +160,12 @@ cc_library(
 	"gprintf.c",
 	"gprintfint.h",
 	"valgrind.h",
-        "libcharset/localcharset.c",
+	"libcharset/localcharset.c",
+	"deprecated/gallocator.c",
+	"deprecated/gcache.c",
+	"deprecated/gcompletion.c",
+	"deprecated/grel.c",
+	"deprecated/gthread-deprecated.c",
     ]],
 )
 
