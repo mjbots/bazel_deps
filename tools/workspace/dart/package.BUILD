@@ -69,6 +69,8 @@ generate_file(
 COMMON_COPTS = [
     "-DASSIMP_AISCENE_CTOR_DTOR_DEFINED",
     "-DASSIMP_AIMATERIAL_CTOR_DTOR_DEFINED",
+    "-Wno-mismatched-tags",
+    "-Wno-delete-non-abstract-non-virtual-dtor",
 ]
 
 cc_library(
