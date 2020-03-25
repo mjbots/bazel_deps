@@ -1,0 +1,35 @@
+diff --git a/dart/gui/OpenGLRenderInterface.cpp b/dart/gui/OpenGLRenderInterface.cpp
+index 19b5928c3..208873d73 100644
+--- a/dart/gui/OpenGLRenderInterface.cpp
++++ b/dart/gui/OpenGLRenderInterface.cpp
+@@ -501,7 +501,7 @@ void OpenGLRenderInterface::applyMaterial(const struct aiMaterial* mtl)
+   aiColor4D specular;
+   aiColor4D ambient;
+   aiColor4D emission;
+-  float shininess, strength;
++  ai_real shininess, strength;
+   int two_sided;
+   int wireframe;
+   unsigned int max;
+@@ -626,8 +626,8 @@ void OpenGLRenderInterface::recursiveRender(
+         if (mesh->mColors[0] != nullptr)
+           glColor4fv((GLfloat*)&mesh->mColors[0][index]);
+         if (mesh->mNormals != nullptr)
+-          glNormal3fv(&mesh->mNormals[index].x);
+-        glVertex3fv(&mesh->mVertices[index].x);
++          glNormal3dv(&mesh->mNormals[index].x);
++        glVertex3dv(&mesh->mVertices[index].x);
+       }
+ 
+       glEnd();
+@@ -677,8 +677,8 @@ void OpenGLRenderInterface::drawSoftMesh(const aiMesh* mesh)
+     for (auto j = 0u; j < 3; ++j)
+     {
+       auto index = face->mIndices[j];
+-      glNormal3fv(&mesh->mVertices[index].x);
+-      glVertex3fv(&mesh->mVertices[index].x);
++      glNormal3dv(&mesh->mVertices[index].x);
++      glVertex3dv(&mesh->mVertices[index].x);
+     }
+ 
+     glEnd();

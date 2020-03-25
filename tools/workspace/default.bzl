@@ -21,6 +21,7 @@ load("//tools/workspace/cairo:repository.bzl", "cairo_repository")
 load("//tools/workspace/dart:repository.bzl", "dart_repository")
 load("//tools/workspace/eigen:repository.bzl", "eigen_repository")
 load("//tools/workspace/expat:repository.bzl", "expat_repository")
+load("//tools/workspace/fcl:repository.bzl", "fcl_repository")
 load("//tools/workspace/ffmpeg:repository.bzl", "ffmpeg_repository")
 load("//tools/workspace/fmt:repository.bzl", "fmt_repository")
 load("//tools/workspace/fontconfig:repository.bzl", "fontconfig_repository")
@@ -36,6 +37,7 @@ load("//tools/workspace/gst-plugins-ugly:repository.bzl", "gst_plugins_ugly_repo
 load("//tools/workspace/gst-rtsp-server:repository.bzl", "gst_rtsp_server_repository")
 load("//tools/workspace/harfbuzz:repository.bzl", "harfbuzz_repository")
 load("//tools/workspace/json:repository.bzl", "json_repository")
+load("//tools/workspace/libccd:repository.bzl", "libccd_repository")
 load("//tools/workspace/libffi:repository.bzl", "libffi_repository")
 load("//tools/workspace/libjpeg:repository.bzl", "libjpeg_repository")
 load("//tools/workspace/libpng:repository.bzl", "libpng_repository")
@@ -83,6 +85,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         eigen_repository(name = "eigen")
     if "expat" not in excludes:
         expat_repository(name = "expat")
+    if "fcl" not in excludes:
+        fcl_repository(name = "fcl")
     if "ffmpeg" not in excludes:
         ffmpeg_repository(name = "ffmpeg")
     if "fmt" not in excludes:
@@ -113,6 +117,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         harfbuzz_repository(name = "harfbuzz")
     if "json" not in excludes:
         json_repository(name = "json")
+    if "libccd" not in excludes:
+        libccd_repository(name = "libccd")
     if "libffi" not in excludes:
         libffi_repository(name = "libffi")
     if "libjpeg" not in excludes:

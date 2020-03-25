@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2019 Josh Pieper, jjp@pobox.com.
+# Copyright 2019-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -66,6 +66,11 @@ generate_file(
 #endif
     """)
 
+COMMON_COPTS = [
+    "-DASSIMP_AISCENE_CTOR_DTOR_DEFINED",
+    "-DASSIMP_AIMATERIAL_CTOR_DTOR_DEFINED",
+]
+
 cc_library(
     name = "dart",
     hdrs = glob(["dart/**/*.hpp"]),
@@ -75,15 +80,42 @@ cc_library(
         "dart/optimizer/Problem.cpp",
         "dart/optimizer/GradientDescentSolver.cpp",
         "dart/optimizer/Solver.cpp",
+        "dart/utils/FileInfoWorld.cpp",
     ] + glob([
+        "dart/external/odelcpsolver/*.cpp",
+        "dart/external/odelcpsolver/*.h",
+        "dart/collision/*.cpp",
+        "dart/collision/fcl/*.cpp",
         "dart/common/**/*.cpp",
+        "dart/constraint/**/*.cpp",
         "dart/dynamics/**/*.cpp",
         "dart/math/**/*.cpp",
+        "dart/simulation/**/*.cpp",
     ], exclude = [
         # These need ikfast
         "dart/dynamics/IkFast.cpp",
         "dart/dynamics/SharedLibraryIkFast.cpp",
+        "dart/gui/osg/**/*.cpp",
+        "dart/gui/glut/**/*.cpp",
     ]),
-    deps = ["@assimp", "@boost", "@eigen"],
+    copts = COMMON_COPTS,
+    deps = ["@assimp", "@boost", "@eigen", "@fcl"],
     includes = ["."],
+)
+
+# NOTE: This depends upon a system installed freeglut, GLU, and GL
+# currently.
+cc_library(
+    name = "gui",
+    srcs = [
+        "dart/external/lodepng/lodepng.cpp",
+        "dart/external/lodepng/lodepng.h",
+    ] + glob([
+        "dart/gui/**/*.cpp",
+    ], exclude = [
+        "dart/gui/osg/**/*.cpp",
+    ]),
+    copts = COMMON_COPTS,
+    deps = [":dart"],
+    linkopts = ["-lGL", "-lGLU", "-lglut"],
 )

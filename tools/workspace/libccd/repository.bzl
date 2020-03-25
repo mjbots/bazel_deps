@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2019-2020 Josh Pieper, jjp@pobox.com.
+# Copyright 2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,15 +16,11 @@
 
 load("//tools/workspace:github_archive.bzl", "github_archive")
 
-def dart_repository(name):
+def libccd_repository(name):
     github_archive(
         name = name,
-        repo = "dartsim/dart",
-        commit = "29c0e51e615b588453733f526cb00a57dc73f77d",
-        sha256 = "176a72ded5e9eff7e839d3604f5197c2a1417fa70956e5b8a5de61a928ca5a9b",
-        build_file = Label("//tools/workspace/dart:package.BUILD"),
-        patches = [
-            Label("//tools/workspace/dart:opengl_types.patch"),
-        ],
-        patch_args = ["-p1"],
+        repo = "danfis/libccd",
+        commit = "7931e764a19ef6b21b443376c699bbc9c6d4fba8",
+        sha256 = "e884eed4359f25ca714ce9ea8fc1ae965c5ce8652cf1444c1c6598fd9bc6faf4",
+        build_file = Label("//tools/workspace/libccd:package.BUILD"),
     )

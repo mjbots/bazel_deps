@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2019-2020 Josh Pieper, jjp@pobox.com.
+# Copyright 2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,15 +16,11 @@
 
 load("//tools/workspace:github_archive.bzl", "github_archive")
 
-def dart_repository(name):
+def fcl_repository(name):
     github_archive(
         name = name,
-        repo = "dartsim/dart",
-        commit = "29c0e51e615b588453733f526cb00a57dc73f77d",
-        sha256 = "176a72ded5e9eff7e839d3604f5197c2a1417fa70956e5b8a5de61a928ca5a9b",
-        build_file = Label("//tools/workspace/dart:package.BUILD"),
-        patches = [
-            Label("//tools/workspace/dart:opengl_types.patch"),
-        ],
-        patch_args = ["-p1"],
+        repo = "flexible-collision-library/fcl",
+        commit = "97455a46de121fb7c0f749e21a58b1b54cd2c6be",
+        sha256 = "4755ad0619a6d37f18167ccf27d8ea58fb6a2566fec5359e446297a9f4065b2c",
+        build_file = Label("//tools/workspace/fcl:package.BUILD"),
     )
