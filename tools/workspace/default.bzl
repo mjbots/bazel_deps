@@ -25,6 +25,7 @@ load("//tools/workspace/fcl:repository.bzl", "fcl_repository")
 load("//tools/workspace/ffmpeg:repository.bzl", "ffmpeg_repository")
 load("//tools/workspace/fmt:repository.bzl", "fmt_repository")
 load("//tools/workspace/fontconfig:repository.bzl", "fontconfig_repository")
+load("//tools/workspace/freeglut:repository.bzl", "freeglut_repository")
 load("//tools/workspace/freetype:repository.bzl", "freetype_repository")
 load("//tools/workspace/fribidi:repository.bzl", "fribidi_repository")
 load("//tools/workspace/glib:repository.bzl", "glib_repository")
@@ -91,10 +92,12 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         ffmpeg_repository(name = "ffmpeg")
     if "fmt" not in excludes:
         fmt_repository(name = "fmt")
-    if "fontconfig" not in excludes:
-        fontconfig_repository(name = "fontconfig")
+    if "freeglut" not in excludes:
+        freeglut_repository(name = "freeglut")
     if "freetype" not in excludes:
         freetype_repository(name = "freetype")
+    if "fontconfig" not in excludes:
+        fontconfig_repository(name = "fontconfig")
     if "fribidi" not in excludes:
         fribidi_repository(name = "fribidi")
     if "glib" not in excludes:

@@ -103,8 +103,7 @@ cc_library(
     includes = ["."],
 )
 
-# NOTE: This depends upon a system installed freeglut, GLU, and GL
-# currently.
+# NOTE: This depends upon a system installed GLU and GL.
 cc_library(
     name = "gui",
     srcs = [
@@ -116,6 +115,9 @@ cc_library(
         "dart/gui/osg/**/*.cpp",
     ]),
     copts = COMMON_COPTS,
-    deps = [":dart"],
-    linkopts = ["-lGL", "-lGLU", "-lglut"],
+    deps = [
+        ":dart",
+        "@freeglut",
+    ],
+    linkopts = ["-lGL", "-lGLU"],
 )

@@ -31,6 +31,7 @@ cc_library(
         "@ffmpeg",
         "@fmt",
         "@fontconfig",
+        "@freeglut",
         "@freetype",
         "@fribidi",
         "@glib",
