@@ -50,4 +50,7 @@ cc_library(
         "//conditions:default" : [],
     }),
     includes = ["include"],
+    deps = [
+        "@libx11",
+    ],
 )
