@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,14 +28,6 @@ cc_library(
 
 cc_library(
     name = "date_time",
-    srcs = ["libs/date_time/src/" + x for x in [
-        "gregorian/date_generators.cpp",
-        "gregorian/greg_month.cpp",
-        "gregorian/greg_names.hpp",
-        "gregorian/gregorian_types.cpp",
-        "gregorian/greg_weekday.cpp",
-        "posix_time/posix_time_types.cpp",
-    ]],
     deps = [":boost"],
 )
 
