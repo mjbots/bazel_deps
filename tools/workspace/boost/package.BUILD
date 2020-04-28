@@ -55,6 +55,7 @@ cc_library(
     ]],
     copts = [
         "-Wno-deprecated-declarations",
+        "-Wno-unused-parameter",
     ],
     deps = [":boost"],
 )
