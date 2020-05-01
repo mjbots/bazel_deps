@@ -24,8 +24,11 @@ CONFIG = {
         "aruco",
         "calib3d",
         "core",
+        "features2d",
         "imgcodecs",
         "imgproc",
+        "video",
+        "videoio",
     ],
     "opts" : @PROCESSOR_OPTS@,
 }
@@ -73,4 +76,33 @@ opencv_module(
     name = "aruco",
     config = CONFIG,
     deps = [":core", ":imgproc", ":calib3d"],
+)
+
+opencv_module(
+    name = "video",
+    config = CONFIG,
+    deps = [":imgproc"],
+)
+
+opencv_module(
+    name = "videoio",
+    config = CONFIG,
+    deps = [":imgproc", ":imgcodecs", "@ffmpeg"],
+    excludes = [
+        'modules/videoio/src/cap_qt.cpp',
+        'modules/videoio/src/cap_winrt_capture.cpp',
+        'modules/videoio/src/cap_winrt_bridge.cpp',
+        'modules/videoio/src/cap_winrt_video.cpp',
+        'modules/videoio/src/cap_mfx_common.cpp',
+        'modules/videoio/src/cap_mfx_reader.cpp',
+        'modules/videoio/src/cap_mfx_writer.cpp',
+        'modules/videoio/src/cap_giganetix.cpp',
+        'modules/videoio/src/cap_gstreamer.cpp',
+        'modules/videoio/src/cap_xine.cpp',
+        'modules/videoio/src/cap_ximea.cpp',
+        'modules/videoio/src/cap_vfw.cpp',
+        'modules/videoio/src/cap_unicap.cpp',
+        'modules/videoio/src/cap_winrt/CaptureFrameGrabber.cpp',
+        'modules/videoio/src/cap_winrt/MediaStreamSink.cpp',
+    ],
 )
