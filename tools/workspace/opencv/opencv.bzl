@@ -133,7 +133,7 @@ def opencv_base(config = None):
             "#cmakedefine HAVE_EIGEN" : "#define HAVE_EIGEN",
             "#cmakedefine HAVE_FFMPEG" : "#define HAVE_FFMPEG",
             "#cmakedefine HAVE_GDAL" : "/* HAVE_GDAL */",
-            "#cmakedefine HAVE_GSTREAMER" : "#define HAVE_GSTREAMER",
+            "#cmakedefine HAVE_GSTREAMER" : "/* HAVE_GSTREAMER */",
             "#cmakedefine HAVE_GTHREAD" : "#define HAVE_GTHREAD",
             "#cmakedefine HAVE_GTK" : "/* HAVE_GTK */",
             "#cmakedefine HAVE_HALIDE" : "/* HAVE_HALIDE */",
