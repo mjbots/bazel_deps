@@ -65,6 +65,7 @@ load("//tools/workspace/xcb-proto:repository.bzl", "xcb_proto_repository")
 load("//tools/workspace/xorgproto:repository.bzl", "xorgproto_repository")
 load("//tools/workspace/xtrans:repository.bzl", "xtrans_repository")
 load("//tools/workspace/zlib:repository.bzl", "zlib_repository")
+load("//tools/workspace/zstd:repository.bzl", "zstd_repository")
 
 def get_default_config():
     return {
@@ -174,3 +175,5 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         xtrans_repository(name = "xtrans")
     if "zlib" not in excludes:
         zlib_repository(name = "zlib")
+    if "zstd" not in excludes:
+        zstd_repository(name = "zstd")
