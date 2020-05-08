@@ -38,6 +38,7 @@ cc_library(
     includes = ["."],
     copts = [
         "-Wno-sign-compare",
+        "-Wno-unused-parameter",
     ],
 )
 
