@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -51,6 +51,10 @@ opencv_module(
     dispatched_files = {
         "accum" : ["sse2", "avx", "neon"],
     },
+    copts = [
+        "-Wno-deprecated-enum-float-conversion",
+        "-Wno-deprecated-volatile",
+    ],
     deps = [":core"],
 )
 
@@ -64,6 +68,9 @@ opencv_module(
     name = "calib3d",
     config = CONFIG,
     deps = [":imgproc", ":features2d"],
+    copts = [
+        "-Wno-deprecated-enum-float-conversion",
+    ],
 )
 
 opencv_module(

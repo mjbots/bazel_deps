@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -126,7 +126,14 @@ cc_library(
         "-I$(GENDIR)/external/libxcb/private",
         "-I$(GENDIR)/external/libxcb/xcb",
         "-Iexternal/libxcb/src",
+    ] + select({
+    "@com_github_mjbots_bazel_deps//conditions:gcc" : [
+        "-Wno-unused-but-set-variable",
     ],
+    "@com_github_mjbots_bazel_deps//conditions:clang" : [
+        "-Wno-macro-redefined",
+        "-Wno-unused-result",
+    ]}),
     includes = [".", "xcb"],
     deps = [
         "@libxau",

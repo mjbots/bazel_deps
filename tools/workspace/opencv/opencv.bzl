@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -206,7 +206,8 @@ def opencv_base(config = None):
 
 def opencv_module(*args, name = None, config = None,
                   excludes = None, dispatched_files = None,
-                  deps = None):
+                  deps = None,
+                  copts = []):
     prefix = "modules/{}".format(name)
 
     config = config or []
@@ -271,5 +272,5 @@ def opencv_module(*args, name = None, config = None,
         copts = _OPENCV_COPTS + [
             "-Iexternal/opencv/" + prefix + "/src",
             "-I$(GENDIR)/external/opencv/" + prefix + "/src",
-        ],
+        ] + copts,
     )

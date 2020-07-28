@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2018-2019 Josh Pieper, jjp@pobox.com.
+# Copyright 2018-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -81,6 +81,11 @@ COMMON_COPTS = [
         "-Wno-#warnings",
         "-Wno-sometimes-uninitialized",
         "-Wno-logical-op-parentheses",
+        "-Wno-implicit-int-float-conversion",
+        "-Wno-string-plus-int",
+        "-Wno-absolute-value",
+        "-Wno-deprecated-declarations",
+        "-Wno-bool-operation",
     ],
     "//conditions:default" : [],
 })

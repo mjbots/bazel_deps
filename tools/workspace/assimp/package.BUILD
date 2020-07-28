@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright 2019 Josh Pieper, jjp@pobox.com.
+# Copyright 2019-2020 Josh Pieper, jjp@pobox.com.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -151,6 +151,8 @@ cc_library(
         "-DASSIMP_BUILD_NO_FBX_EXPORTER",
         "-DASSIMP_BUILD_NO_3MF_EXPORTER",
         "-DASSIMP_BUILD_NO_ASSJSON_EXPORTER",
+        "-Wno-unused-variable",
+        "-Wno-shift-count-overflow",
     ],
     deps = [
         "@utfcpp",

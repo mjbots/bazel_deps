@@ -21,9 +21,9 @@ def eigen_repository(name):
     http_archive(
         name = name,
         urls = [
-            "http://bitbucket.org/eigen/eigen/get/3.3.7.tar.bz2",
+            "https://gitlab.com/libeigen/eigen/-/archive/99da2e1a8da4130279aa3becd6c23be0181edb07/eigen-99da2e1a8da4130279aa3becd6c23be0181edb07.tar.bz2",
         ],
-        sha256 = "9f13cf90dedbe3e52a19f43000d71fdf72e986beb9a5436dddcd61ff9d77a3ce",
-        strip_prefix = "eigen-eigen-323c052e1731",
+        sha256 = "9089a59ed90a873c3e71c0c1e94004d5768ad518764a4f844cbba5df4285b6b5",
+        strip_prefix = "eigen-99da2e1a8da4130279aa3becd6c23be0181edb07",
         build_file = Label("//tools/workspace/eigen:package.BUILD"),
     )
