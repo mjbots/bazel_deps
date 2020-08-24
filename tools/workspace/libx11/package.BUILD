@@ -587,17 +587,34 @@ cc_library(
     ],
 )
 
-cc_library(
-    name = "libi18n",
+cc_binary(
+    name = "libi18n_bin.so",
     srcs = libi18n_la_SOURCES + glob(["src/*.h"]) + [
         "private/config.h",
     ],
     copts = COPTS,
     deps = [":headers"],
+    linkshared = True,
 )
 
 cc_library(
-    name = "xim",
+    name = "libi18n",
+    srcs = [":libi18n_bin.so"],
+    deps = [":headers"],
+    hdrs = ["src/xlibi18n/" + x for x in [
+        "XlcPublic.h",
+        "Xlcint.h",
+        "Ximint.h",
+        "XlcGeneric.h",
+        "XlcPubI.h",
+        "XimintP.h",
+        "XimProto.h",
+        "XimintL.h",
+    ]],
+)
+
+cc_binary(
+    name = "libxim_bin.so",
     srcs = ximcp_la_SOURCES + glob(["src/**/*.h"]) + [
         "private/config.h",
     ],
@@ -606,10 +623,17 @@ cc_library(
         "-DTRANS_CLIENT",
     ],
     deps = [":headers"],
+    linkshared = True,
 )
 
 cc_library(
-    name = "libx11",
+    name = "xim",
+    srcs = [":libxim_bin.so"],
+    deps = [":headers"],
+)
+
+cc_binary(
+    name = "libx11_bin.so",
     srcs = (
         libX11_la_SOURCES +
         libxcms_la_SOURCES +
@@ -630,6 +654,13 @@ cc_library(
         ":libi18n",
         ":xim",
     ],
+    linkshared = True,
+)
+
+cc_library(
+    name = "libx11",
+    srcs = [":libx11_bin.so"],
+    deps = [":headers"],
 )
 
 cc_library(
