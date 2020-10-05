@@ -45,12 +45,18 @@ cc_library(
 template_file(
     name = "snappy-stubs-public.h",
     src = "snappy-stubs-public.h.in",
-    substitutions = {
-        "${HAVE_STDINT_H_01}": "1",
-        "${HAVE_STDDEF_H_01}": "1",
-        "${HAVE_SYS_UIO_H_01}": "1",
-        "${SNAPPY_MAJOR}": "1",
-        "${SNAPPY_MINOR}": "1",
-        "${SNAPPY_PATCHLEVEL}": "7",
-    },
+    substitution_list = select({
+        "@bazel_tools//src/conditions:windows": [
+            "${HAVE_SYS_UIO_H_01}=0",
+        ],
+        "//conditions:default": [
+            "${HAVE_SYS_UIO_H_01}=1",
+        ]
+    }) + [
+        "${HAVE_STDINT_H_01}=1",
+        "${HAVE_STDDEF_H_01}=1",
+        "${SNAPPY_MAJOR}=1",
+        "${SNAPPY_MINOR}=1",
+        "${SNAPPY_PATCHLEVEL}=7",
+    ],
 )
