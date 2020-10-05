@@ -100,7 +100,6 @@ cc_library(
         "xml_report_formatter.cpp",
     ]],
     deps = [":boost"],
-    defines = ["BOOST_TEST_DYN_LINK=1"],
 )
 
 cc_library(
