@@ -21,6 +21,12 @@ cc_library(
     name = "boost",
     hdrs = glob(["boost/**"]),
     includes = ["."],
+    defines = ["BOOST_ALL_NO_LIB"] + select({
+        "@bazel_tools//src/conditions:windows": [
+            "_HAS_DEPRECATED_RESULT_OF",
+        ],
+        "//conditions:default": [],
+    }),
 )
 
 # Here is just a small subset of boost libraries that have a
