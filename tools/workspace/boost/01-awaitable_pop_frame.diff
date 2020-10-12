@@ -1,0 +1,13 @@
+diff --git a/asio/include/asio/impl/awaitable.hpp b/asio/include/asio/impl/awaitable.hpp
+index 03abea73..b9ef7b75 100644
+--- a/boost/asio/impl/awaitable.hpp
++++ b/boost/asio/impl/awaitable.hpp
+@@ -111,7 +111,7 @@ public:
+
+       void await_suspend(coroutine_handle<void>) noexcept
+       {
+-        this_->pop_frame();
++        this->this_->pop_frame();
+       }
+
+       void await_resume() const noexcept
