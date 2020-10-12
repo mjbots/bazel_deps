@@ -46,7 +46,12 @@ cc_library(
         "utf8_codecvt_facet.cpp",
         "error_handling.hpp",
         "platform_config.hpp",
-    ]],
+    ]] + select({
+        "@bazel_tools//src/conditions:windows": [
+            "libs/filesystem/src/windows_file_codecvt.cpp",
+        ],
+        "//conditions:default": [],
+    }),
     copts = [
         "-Wno-deprecated-declarations",
         "-Wno-unused-parameter",
