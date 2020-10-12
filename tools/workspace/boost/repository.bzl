@@ -21,7 +21,6 @@ def boost_repository(name):
     http_archive(
         name = name,
         urls = [
-#            "https://managedway.dl.sourceforge.net/project/boost/boost/1.74.0.beta.1/boost_1_74_0_b1.tar.bz2",
             "https://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.tar.bz2",
         ],
         sha256 = "83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1",
