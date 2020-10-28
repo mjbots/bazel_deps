@@ -133,6 +133,9 @@ cc_library(
     "@com_github_mjbots_bazel_deps//conditions:clang" : [
         "-Wno-macro-redefined",
         "-Wno-unused-result",
+        "-Wno-unused-parameter",
+        "-Wno-vla",
+        "-Wno-sign-compare",
     ]}),
     includes = [".", "xcb"],
     deps = [

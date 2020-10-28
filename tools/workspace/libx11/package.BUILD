@@ -557,6 +557,10 @@ COPTS = [
     "@com_github_mjbots_bazel_deps//conditions:clang" : [
         "-Wno-parentheses-equality",
         "-Wno-tautological-compare",
+        "-Wno-unused-parameter",
+        "-Wno-sign-compare",
+        "-Wno-missing-field-initializers",
+        "-Wno-vla",
     ],
     "//conditions:default" : [],
 })
