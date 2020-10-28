@@ -45,8 +45,12 @@ load("//tools/workspace/libpng:repository.bzl", "libpng_repository")
 load("//tools/workspace/libx11:repository.bzl", "libx11_repository")
 load("//tools/workspace/libxau:repository.bzl", "libxau_repository")
 load("//tools/workspace/libxcb:repository.bzl", "libxcb_repository")
+load("//tools/workspace/libxcursor:repository.bzl", "libxcursor_repository")
 load("//tools/workspace/libxdmcp:repository.bzl", "libxdmcp_repository")
 load("//tools/workspace/libxext:repository.bzl", "libxext_repository")
+load("//tools/workspace/libxi:repository.bzl", "libxi_repository")
+load("//tools/workspace/libxinerama:repository.bzl", "libxinerama_repository")
+load("//tools/workspace/libxrandr:repository.bzl", "libxrandr_repository")
 load("//tools/workspace/libxv:repository.bzl", "libxv_repository")
 load("//tools/workspace/log4cpp:repository.bzl", "log4cpp_repository")
 load("//tools/workspace/nasm:repository.bzl", "nasm_repository")
@@ -135,10 +139,18 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         libxau_repository(name = "libxau")
     if "libxcb" not in excludes:
         libxcb_repository(name = "libxcb")
+    if "libxcursor" not in excludes:
+        libxcursor_repository(name = "libxcursor")
     if "libxdmcp" not in excludes:
         libxdmcp_repository(name = "libxdmcp")
     if "libxext" not in excludes:
         libxext_repository(name = "libxext")
+    if "libxi" not in excludes:
+        libxi_repository(name = "libxi")
+    if "libxinerama" not in excludes:
+        libxinerama_repository(name = "libxinerama")
+    if "libxrandr" not in excludes:
+        libxrandr_repository(name = "libxrandr")
     if "libxv" not in excludes:
         libxv_repository(name = "libxv")
     if "log4cpp" not in excludes:
