@@ -46,6 +46,7 @@ cc_library(
     deps = [
         "@libx11",
     ],
+    linkstatic = True,
 )
 
 autoconf_config(
