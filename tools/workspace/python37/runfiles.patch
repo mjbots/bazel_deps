@@ -1,0 +1,13 @@
+diff --git a/Modules/getpath.c b/Modules/getpath.c
+index 35f9e31..9ad857d 100644
+--- a/Modules/getpath.c
++++ b/Modules/getpath.c
+@@ -908,7 +908,7 @@ calculate_init(PyCalculatePath *calculate,
+     if (!calculate->exec_prefix) {
+         return DECODE_LOCALE_ERR("EXEC_PREFIX define", len);
+     }
+-    calculate->lib_python = Py_DecodeLocale("lib/python" VERSION, &len);
++    calculate->lib_python = Py_DecodeLocale("python.runfiles/python/lib/python" VERSION, &len);
+     if (!calculate->lib_python) {
+         return DECODE_LOCALE_ERR("EXEC_PREFIX define", len);
+     }

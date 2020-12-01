@@ -59,6 +59,7 @@ load("//tools/workspace/pango:repository.bzl", "pango_repository")
 load("//tools/workspace/pcre:repository.bzl", "pcre_repository")
 load("//tools/workspace/pixman:repository.bzl", "pixman_repository")
 load("//tools/workspace/python:repository.bzl", "python_repository")
+load("//tools/workspace/python37:repository.bzl", "python37_repository")
 load("//tools/workspace/snappy:repository.bzl", "snappy_repository")
 load("//tools/workspace/spdlog:repository.bzl", "spdlog_repository")
 load("//tools/workspace/utfcpp:repository.bzl", "utfcpp_repository")
@@ -167,6 +168,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         pixman_repository(name = "pixman")
     if "python" not in excludes:
         python_repository(name = "python")
+    if "python37" not in excludes:
+        python37_repository(name = "python37")
     if "snappy" not in excludes:
         snappy_repository(name = "snappy")
     if "spdlog" not in excludes:
