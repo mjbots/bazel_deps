@@ -18,20 +18,23 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 
 def _impl(repository_ctx):
+    version = repository_ctx.attr.version
+    sha256 = repository_ctx.attr.sha256
     repository_ctx.download_and_extract(
         url = [
-            "https://github.com/opencv/opencv/archive/3.4.2.tar.gz",
+            "https://github.com/opencv/opencv/archive/{}.tar.gz".format(version),
         ],
-        sha256 = "81dbd5e7e9f8a4c936b94629bf4765745942a1d634ae38ec08bc57b73b28ffc5",
-        stripPrefix = "opencv-3.4.2",
+        sha256 = sha256,
+        stripPrefix = "opencv-{}".format(version),
     )
 
+    contrib_sha256 = repository_ctx.attr.contrib_sha256
     repository_ctx.download_and_extract(
         url = [
-            "https://github.com/opencv/opencv_contrib/archive/3.4.2.tar.gz",
+            "https://github.com/opencv/opencv_contrib/archive/{}.tar.gz".format(version),
         ],
-        sha256 = "45a52764ebd2558fa0b7fd8dc47379b37dd0956d912abbf7c786228374fdf60d",
-        stripPrefix = "opencv_contrib-3.4.2",
+        sha256 = contrib_sha256,
+        stripPrefix = "opencv_contrib-{}".format(version),
     )
 
     substitutions = {
@@ -49,6 +52,9 @@ _opencv_repository = repository_rule(
     attrs = {
         "build_file_template" : attr.label(allow_single_file = True),
         "config" : attr.string_list_dict(),
+        "version" : attr.string(default = "3.4.2"),
+        "sha256" : attr.string(default = "81dbd5e7e9f8a4c936b94629bf4765745942a1d634ae38ec08bc57b73b28ffc5"),
+        "contrib_sha256" : attr.string(default = "45a52764ebd2558fa0b7fd8dc47379b37dd0956d912abbf7c786228374fdf60d"),
     }
 )
 
