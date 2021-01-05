@@ -58,9 +58,10 @@ _opencv_repository = repository_rule(
     }
 )
 
-def opencv_repository(name, config=None):
+def opencv_repository(name, config=None, **kwargs):
     _opencv_repository(
         name = name,
         build_file_template = Label("//tools/workspace/opencv:package.BUILD"),
         config = config or {},
+        **kwargs
     )
