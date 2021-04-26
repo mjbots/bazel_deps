@@ -584,7 +584,6 @@ cc_library(
     includes = ["include"],
     deps = [
         "@xorgproto",
-        "@libxcb",
         "@libxau",
         "@libxdmcp",
         "@xtrans",
@@ -597,6 +596,7 @@ cc_binary(
         "private/config.h",
     ],
     copts = COPTS,
+    linkopts = ["-lxcb"],
     deps = [":headers"],
     linkshared = True,
 )
