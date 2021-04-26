@@ -8,6 +8,10 @@ jobs:
       script: ./travis-ci.py 2
 dist: bionic
 language: cpp
+addons:
+  apt:
+    packages:
+    - libx11-xcb-dev
 cache:
    directories:
     - $HOME/.cache/bazel/
