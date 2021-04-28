@@ -22,9 +22,8 @@ def boost_repository(name):
         name = name,
         urls = [
             "https://boostorg.jfrog.io/artifactory/main/release/1.74.0/source/boost_1_74_0.tar.gz",
-            "https://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.tar.bz2",
         ],
-        sha256 = "83bfc1507731a0906e387fc28b7ef5417d591429e51e788417fe9ff025e116b1",
+        sha256 = "afff36d392885120bcac079148c177d1f6f7730ec3d47233aa51b0afa4db94a5",
         strip_prefix = "boost_1_74_0",
         patches = [
             # This patch allows clang to build asio on Windows
