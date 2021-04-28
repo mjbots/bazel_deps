@@ -535,7 +535,6 @@ autoconf_standard_defines = [
     "HAVE_STRNDUP",
     "HAVE_STRNDUP_H",
     "HAVE_STRNLEN",
-    "HAVE_STROPTS_H",
     "HAVE_STRSEP",
     "HAVE_STRSIGNAL",
     "HAVE_STRSIGNAL_DECL",
