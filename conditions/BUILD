@@ -37,6 +37,20 @@ config_setting(
     },
 )
 
+config_setting(
+    name = "aarch64",
+    values = {
+        "cpu" : "aarch64",
+    },
+)
+
+config_setting(
+    name = "armeabihf",
+    values = {
+        "cpu" : "armeabihf",
+    },
+)
+
 alias(
     name = "x86_64",
     actual = select({
@@ -58,27 +72,47 @@ alias(
 
 alias(
     name = "sizet_8bytes",
-    actual = ":x86_64",
+    actual = select({
+        ":x86_64" : ":x86_64",
+        ":aarch64" : ":aarch64",
+        "//conditions:default" : "x86_64",
+    }),
 )
 
 alias(
     name = "long_8bytes",
-    actual = ":x86_64",
+    actual = select({
+        ":x86_64" : ":x86_64",
+        ":aarch64" : ":aarch64",
+        "//conditions:default" : "x86_64",
+    }),
 )
 
 alias(
     name = "long_double_16bytes",
-    actual = ":x86_64",
+    actual = select({
+        ":x86_64" : ":x86_64",
+        ":aarch64" : ":aarch64",
+        "//conditions:default" : "x86_64",
+    }),
 )
 
 alias(
     name = "sizet_long",
-    actual = ":x86_64",
+    actual = select({
+        ":x86_64" : ":x86_64",
+        ":aarch64" : ":aarch64",
+        "//conditions:default" : "x86_64",
+    }),
 )
 
 alias(
     name = "has_uint128",
-    actual = ":x86_64",
+    actual = select({
+        ":x86_64" : ":x86_64",
+        ":aarch64" : ":aarch64",
+        "//conditions:default" : "x86_64",
+    }),
 )
 
 config_setting(

@@ -752,4 +752,8 @@ autoconf_standard_defines = [
         "HAVE_CPU_ARM",
         "TARGET_CPU=\"ARM\"",
     ],
+    "@com_github_mjbots_bazel_deps//conditions:aarch64" : [
+        "HAVE_CPU_AARCH64",
+        "TARGET_CPU=\"AARCH64\"",
+    ],
 })
