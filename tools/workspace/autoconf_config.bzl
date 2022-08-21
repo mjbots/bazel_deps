@@ -593,7 +593,7 @@ autoconf_standard_defines = [
     "HAVE_SYS_STAT_H",
     "HAVE_SYS_SWAP_H",
     "HAVE_SYS_SYSCALL_H",
-    "HAVE_SYS_SYSCTL_H",
+    # "HAVE_SYS_SYSCTL_H",
     "HAVE_SYS_SYSMACROS_H",
     "HAVE_SYS_TIMES_H",
     "HAVE_SYS_TIMEX_H",
