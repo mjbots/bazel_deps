@@ -21,9 +21,9 @@ def libxext_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://www.x.org/releases/individual/lib/libXext-1.3.3.tar.bz2",
+            "https://www.x.org/releases/individual/lib/libXext-1.3.5.tar.xz",
         ],
-        sha256 = "b518d4d332231f313371fdefac59e3776f4f0823bcb23cf7c7305bfb57b16e35",
-        strip_prefix = "libXext-1.3.3",
+        sha256 = "db14c0c895c57ea33a8559de8cb2b93dc76c42ea4a39e294d175938a133d7bca",
+        strip_prefix = "libXext-1.3.5",
         build_file = Label("//tools/workspace/libxext:package.BUILD"),
     )

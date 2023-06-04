@@ -21,9 +21,9 @@ def libx11_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://www.x.org/releases/individual/lib/libX11-1.6.5.tar.bz2",
+            "https://www.x.org/releases/individual/lib/libX11-1.7.5.tar.xz",
         ],
-        sha256 = "4d3890db2ba225ba8c55ca63c6409c1ebb078a2806de59fb16342768ae63435d",
-        strip_prefix = "libX11-1.6.5",
+        sha256 = "5a1847e2e2c248e1a203a24a1338a5586d6f48472eac58f6f08539110a965151",
+        strip_prefix = "libX11-1.7.5",
         build_file = Label("//tools/workspace/libx11:package.BUILD"),
     )

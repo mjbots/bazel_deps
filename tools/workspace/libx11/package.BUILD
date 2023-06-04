@@ -293,6 +293,8 @@ libX11_la_SOURCES = ["src/" + x for x in [
     "Xresinternal.h",
     "Xrm.c",
     "Xxcbint.h",
+    "reallocarray.c",
+    "reallocarray.h",
 ]]
 
 libxcms_la_SOURCES = ["src/xcms/" + x for x in [
@@ -363,7 +365,9 @@ libxcms_la_SOURCES = ["src/xcms/" + x for x in [
     "Xcmsint.h",
 ]]
 
-libi18n_la_SOURCES = ["src/xlibi18n/" + x for x in [
+libi18n_la_SOURCES = ["src/" + x for x in [
+    "reallocarray.c",
+  ]] + ["src/xlibi18n/" + x for x in [
     "XlcDL.c",
     "XlcSL.c",
     "XDefaultIMIF.c",
@@ -679,7 +683,9 @@ cc_library(
 
 cc_binary(
     name = "makekeys",
-    srcs = ["src/util/makekeys.c"] + glob(["src/*.h"]),
+    srcs = ["src/util/makekeys.c"] + glob(["src/*.h"]) + [
+        "private/config.h",
+    ],
     deps = [":headers"],
     copts = COPTS,
 )

@@ -21,9 +21,9 @@ def libxcb_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://www.x.org/releases/individual/xcb/libxcb-1.14.tar.xz",
+            "https://www.x.org/releases/individual/xcb/libxcb-1.15.tar.xz",
         ],
-        sha256 = "a55ed6db98d43469801262d81dc2572ed124edc3db31059d4e9916eb9f844c34",
-        strip_prefix = "libxcb-1.14",
+        sha256 = "cc38744f817cf6814c847e2df37fcb8997357d72fa4bcbc228ae0fe47219a059",
+        strip_prefix = "libxcb-1.15",
         build_file = Label("//tools/workspace/libxcb:package.BUILD"),
     )

@@ -21,9 +21,9 @@ def xorgproto_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://www.x.org/releases/individual/proto/xorgproto-2018.4.tar.bz2",
+            "https://www.x.org/releases/individual/proto/xorgproto-2022.2.tar.xz",
         ],
-        sha256 = "fee885e0512899ea5280c593fdb2735beb1693ad170c22ebcc844470eec415a0",
-        strip_prefix = "xorgproto-2018.4",
+        sha256 = "5d13dbf2be08f95323985de53352c4f352713860457b95ccaf894a647ac06b9e",
+        strip_prefix = "xorgproto-2022.2",
         build_file = Label("//tools/workspace/xorgproto:package.BUILD"),
     )
