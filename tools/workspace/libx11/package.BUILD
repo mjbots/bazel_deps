@@ -554,6 +554,7 @@ COPTS = [
     "-Wno-unused-label",
     "-Wno-constant-conversion",
     "-Wno-unused-variable",
+    "-Wno-parentheses-equality",
 ] + select({
     "@com_github_mjbots_bazel_deps//conditions:gcc" : [
         "-Wno-unused-but-set-variable",
