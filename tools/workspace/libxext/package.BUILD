@@ -56,6 +56,9 @@ cc_library(
         "Xge.c",
 	"extutil.c",
 	"globals.c",
+
+	"extutilP.h",
+	"reallocarray.h",
     ]] + [
         "private/config.h",
     ],
