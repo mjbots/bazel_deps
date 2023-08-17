@@ -21,9 +21,9 @@ def xcb_proto_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://www.x.org/releases/individual/xcb/xcb-proto-1.13.tar.bz2",
+            "https://www.x.org/releases/individual/xcb/xcb-proto-1.15.tar.xz",
         ],
-        sha256 = "7b98721e669be80284e9bbfeab02d2d0d54cd11172b72271e47a2fe875e2bde1",
-        strip_prefix = "xcb-proto-1.13",
+        sha256 = "d34c3b264e8365d16fa9db49179cfa3e9952baaf9275badda0f413966b65955f",
+        strip_prefix = "xcb-proto-1.15",
         build_file = Label("//tools/workspace/xcb-proto:package.BUILD"),
     )
