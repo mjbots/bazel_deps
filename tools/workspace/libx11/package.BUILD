@@ -662,6 +662,7 @@ cc_binary(
         ":headers",
         ":libi18n",
         ":xim",
+        "@libxcb//:libxcb",
     ],
     linkshared = True,
 )

@@ -99,6 +99,7 @@ cc_library(
     includes = ["include"],
     deps = [
         "@libx11",
+        "@libxext",
     ],
     linkstatic = True,
 )
