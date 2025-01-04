@@ -56,6 +56,7 @@ cc_library(
         "Xge.c",
 	"extutil.c",
 	"globals.c",
+        "reallocarray.c",
 
 	"extutilP.h",
 	"reallocarray.h",
