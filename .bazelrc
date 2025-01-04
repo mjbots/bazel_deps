@@ -1,3 +1,6 @@
+common --noenable_bzlmod
+build --noincompatible_enable_cc_toolchain_resolution
+
 build --define GCC=true
 test --define GCC=true
 
