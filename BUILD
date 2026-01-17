@@ -66,6 +66,7 @@ cc_library(
         "@python310//:headers",
         "@python311//:headers",
         "@python312//:headers",
+        "@python313//:headers",
         "@snappy",
         "@spdlog",
         "@utfcpp",

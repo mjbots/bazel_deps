@@ -64,6 +64,7 @@ load("//tools/workspace/python39:repository.bzl", "python39_repository")
 load("//tools/workspace/python310:repository.bzl", "python310_repository")
 load("//tools/workspace/python311:repository.bzl", "python311_repository")
 load("//tools/workspace/python312:repository.bzl", "python312_repository")
+load("//tools/workspace/python313:repository.bzl", "python313_repository")
 load("//tools/workspace/snappy:repository.bzl", "snappy_repository")
 load("//tools/workspace/spdlog:repository.bzl", "spdlog_repository")
 load("//tools/workspace/utfcpp:repository.bzl", "utfcpp_repository")
@@ -182,6 +183,8 @@ def add_default_repositories(excludes = [], config = get_default_config()):
         python311_repository(name = "python311")
     if "python312" not in excludes:
         python312_repository(name = "python312")
+    if "python313" not in excludes:
+        python313_repository(name = "python313")
     if "snappy" not in excludes:
         snappy_repository(name = "snappy")
     if "spdlog" not in excludes:
