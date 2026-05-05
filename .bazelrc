@@ -6,3 +6,9 @@ test --define GCC=true
 
 build --cxxopt -std=c++17
 test --cxxopt -std=c++17
+
+# GCC 15 defaults to C23, which breaks legacy C in ffmpeg (ATOMIC_VAR_INIT
+# removed), glib (bool became a keyword), and likely other vendored sources.
+# Pin C compilation to gnu17 — newest C standard that still accepts this code.
+build --conlyopt -std=gnu17
+test --conlyopt -std=gnu17

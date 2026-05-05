@@ -1,0 +1,16 @@
+Add <sys/ioctl.h> on Linux. Newer glibc no longer pulls it in transitively,
+so ioctl() is implicitly declared and GCC 14+ rejects that.
+
+--- Modules/socketmodule.c
++++ Modules/socketmodule.c
+@@ -243,6 +243,10 @@
+ #if defined(__APPLE__) || defined(__CYGWIN__) || defined(__NetBSD__)
+ # include <sys/ioctl.h>
+ #endif
++
++#if defined(__linux__)
++# include <sys/ioctl.h>
++#endif
+
+
+ #if defined(__sgi) && _COMPILER_VERSION>700 && !_SGIAPI

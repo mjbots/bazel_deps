@@ -25,6 +25,10 @@ def python_repository(name):
         ],
         sha256 = "f434053ba1b5c8a5cc597e966ead3c5143012af827fd3f0697d21450bb8d87a6",
         strip_prefix = "Python-3.6.5",
-        patches = [Label("//tools/workspace/python:runfiles.patch")],
+        patches = [
+            Label("//tools/workspace/python:runfiles.patch"),
+            Label("//tools/workspace/python:socketmodule_ioctl.patch"),
+            Label("//tools/workspace/python:mathmodule_sinpi.patch"),
+        ],
         build_file = Label("//tools/workspace/python:package.BUILD"),
     )
