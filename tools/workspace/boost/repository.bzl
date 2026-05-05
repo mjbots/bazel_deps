@@ -21,14 +21,9 @@ def boost_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://archives.boost.io/release/1.74.0/source/boost_1_74_0.tar.gz",
+            "https://archives.boost.io/release/1.91.0/source/boost_1_91_0.tar.gz",
         ],
-        sha256 = "afff36d392885120bcac079148c177d1f6f7730ec3d47233aa51b0afa4db94a5",
-        strip_prefix = "boost_1_74_0",
-        patches = [
-            # This patch allows clang to build asio on Windows
-            Label("//tools/workspace/boost:01-awaitable_pop_frame.diff"),
-        ],
-        patch_args = ["-p1"],
+        sha256 = "5734305f40a76c30f951c9abd409a45a2a19fb546efe4162119250bbe4d3a463",
+        strip_prefix = "boost_1_91_0",
         build_file = Label("//tools/workspace/boost:package.BUILD"),
     )

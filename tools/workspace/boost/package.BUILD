@@ -21,7 +21,16 @@ cc_library(
     name = "boost",
     hdrs = glob(["boost/**"]),
     includes = ["."],
-    defines = ["BOOST_ALL_NO_LIB"],
+    defines = [
+        "BOOST_ALL_NO_LIB",
+        # Boost.Asio in 1.81+ marks legacy Asio APIs (basic_deadline_timer,
+        # time_traits<ptime>, etc.) with the C++ [[deprecated]] attribute.
+        # Under -Werror this breaks builds that haven't yet migrated to
+        # basic_waitable_timer. Suppressing the attribute keeps the APIs
+        # functional; the underlying deprecation note is preserved in the
+        # Asio docs.
+        "BOOST_ASIO_DISABLE_DEPRECATED_MSG",
+    ],
 )
 
 # Here is just a small subset of boost libraries that have a
@@ -44,9 +53,7 @@ cc_library(
         "portability.cpp",
         "unique_path.cpp",
         "utf8_codecvt_facet.cpp",
-        "error_handling.hpp",
-        "platform_config.hpp",
-    ]] + select({
+    ]] + glob(["libs/filesystem/src/*.hpp"]) + select({
         "@bazel_tools//src/conditions:windows": [
             "libs/filesystem/src/windows_file_codecvt.cpp",
         ],
@@ -78,7 +85,6 @@ cc_library(
 
 cc_library(
     name = "system",
-    srcs = ["libs/system/src/error_code.cpp"],
     deps = [":boost"],
 )
 
