@@ -136,6 +136,8 @@ cc_library(
         "-Wno-unused-parameter",
         "-Wno-vla",
         "-Wno-sign-compare",
+        "-Wno-unused-but-set-variable",
+        "-Wno-incompatible-pointer-types-discards-qualifiers",
     ]}),
     includes = [".", "xcb"],
     deps = [

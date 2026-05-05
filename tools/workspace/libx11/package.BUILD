@@ -566,6 +566,8 @@ COPTS = [
         "-Wno-sign-compare",
         "-Wno-missing-field-initializers",
         "-Wno-vla",
+        "-Wno-unused-but-set-variable",
+        "-Wno-incompatible-pointer-types-discards-qualifiers",
     ],
     "//conditions:default" : [],
 })

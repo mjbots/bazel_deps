@@ -41,7 +41,12 @@ cc_library(
         "-Wno-sign-compare",
         "-Wno-unused-parameter",
         "-Wno-missing-field-initializers",
-    ],
+    ] + select({
+        "@com_github_mjbots_bazel_deps//conditions:clang" : [
+            "-Wno-incompatible-pointer-types-discards-qualifiers",
+        ],
+        "//conditions:default" : [],
+    }),
     includes = ["include"],
     deps = [
         "@libx11",
