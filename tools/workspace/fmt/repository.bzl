@@ -21,9 +21,9 @@ def fmt_repository(name):
     http_archive(
         name = name,
         urls = [
-            "https://github.com/fmtlib/fmt/archive/5.0.0.tar.gz",
+            "https://github.com/fmtlib/fmt/archive/12.1.0.tar.gz",
         ],
-        sha256 = "fc33d64d5aa2739ad2ca1b128628a7fc1b7dca1ad077314f09affc57d59cf88a",
-        strip_prefix = "fmt-5.0.0",
+        sha256 = "ea7de4299689e12b6dddd392f9896f08fb0777ac7168897a244a6d6085043fea",
+        strip_prefix = "fmt-12.1.0",
         build_file = Label("//tools/workspace/fmt:package.BUILD"),
     )
